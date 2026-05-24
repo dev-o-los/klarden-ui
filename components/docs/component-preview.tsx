@@ -17,6 +17,7 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
   const [key, setKey] = useState(0);
 
   const Component = registry[name];
+  const isFullBleed = name.startsWith("animated-gradient");
 
   const copyToClipboard = () => {
     setCopied(true);
@@ -97,10 +98,16 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.99 }}
               transition={{ duration: 0.2 }}
-              className="w-full flex items-center justify-center p-6 sm:p-12 min-h-75"
+              className={cn(
+                "w-full flex items-center justify-center min-h-75",
+                isFullBleed ? "p-0" : "p-6 sm:p-12"
+              )}
             >
               {Component ? (
-                <div className="scale-90 sm:scale-100 origin-center transition-transform">
+                <div className={cn(
+                  "origin-center transition-transform",
+                  isFullBleed ? "w-full h-full" : "scale-90 sm:scale-100"
+                )}>
                   <Component />
                 </div>
               ) : (

@@ -41,4 +41,10 @@ export const registry: Record<
     () => import("@/registry/demos/pagination-variants-demo"),
   ),
   slider: dynamic(() => import("@/registry/demos/slider-demo")),
+  "animated-gradient": dynamic(
+    () => import("@/registry/demos/animated-gradient-demo"),
+  ),
+  "animated-gradient-presets": dynamic(
+    () => import("@/registry/demos/animated-gradient-presets-demo"),
+  ),
 };

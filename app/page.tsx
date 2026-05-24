@@ -79,8 +79,8 @@ export default function Home() {
                   asChild
                   className="font-semibold"
                 >
-                  <Link href="https://twitter.com/utkarshdev_" target="_blank">
-                    @utkarshdev_
+                  <Link href="https://twitter.com/utkxrshdev_" target="_blank">
+                    @utkxrshdev_
                   </Link>
                 </RichButton>
               </div>

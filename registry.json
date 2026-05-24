@@ -230,6 +230,21 @@
       "dependencies": ["lucide-react"],
       "registryDependencies": [],
       "category": "media"
+    },
+    {
+      "name": "animated-gradient",
+      "type": "registry:component",
+      "title": "Animated Gradient",
+      "description": "WebGL-powered animated mist, lava, and plasma backgrounds with smooth silk-like flowing streams.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/animated-gradient.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "category": "media"
     }
   ]
 }
