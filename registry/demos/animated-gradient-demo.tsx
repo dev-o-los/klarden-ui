@@ -3,7 +3,7 @@ import { AnimatedGradient } from "@/registry/klarden-ui/animated-gradient";
 export default function AnimatedGradientDemo() {
   return (
     <AnimatedGradient
-      variant="vortex"
+      variant="mist"
       speed={0.6}
       opacity={0.8}
       className="h-96 w-full"

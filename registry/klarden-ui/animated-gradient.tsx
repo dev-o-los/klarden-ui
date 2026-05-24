@@ -267,12 +267,13 @@ const VORTEX_SHADER = `
                mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
   }
 
+  // Limited to 2 octaves to eliminate jagged details and ensure broad, unbroken, glassy silk waves
   float fbm(vec2 p) {
     float v = 0.0;
     float a = 0.5;
     vec2 shift = vec2(100.0);
     mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 2; ++i) {
       v += a * noise(p);
       p = rot * p * 2.0 + shift;
       a *= 0.5;
@@ -284,8 +285,8 @@ const VORTEX_SHADER = `
     vec2 uv = v_uv;
     float aspect = u_resolution.x / u_resolution.y;
     
-    // Increased speed for dynamic physics
-    float t = u_time * 0.65;
+    // Smooth fluid motion speed
+    float t = u_time * 0.55;
     
     // Center of the vortex
     vec2 center = vec2(0.5);
@@ -295,12 +296,13 @@ const VORTEX_SHADER = `
     float dist = length(st);
     float angle = atan(st.y, st.x);
     
-    // Natural fluid vortex swirl physics: decays smoothly away from center
+    // Natural fluid vortex swirl physics: decays smoothly away from center, damped at the absolute core to prevent breaking
     float swirl = 3.2 / (dist + 0.3);
-    angle += swirl * 0.6 + t * 0.3;
+    angle += swirl * 0.6 * smoothstep(0.04, 0.25, dist) + t * 0.3;
     
-    // Smooth fluid radial ripples
-    dist += sin(angle * 2.0 - t * 1.2) * 0.015 * (1.0 - smoothstep(0.0, 0.9, dist));
+    // Smooth fluid radial ripples: damped near the center to prevent high-frequency coordinate tearing
+    float rippleMask = smoothstep(0.08, 0.35, dist);
+    dist += sin(angle * 2.0 - t * 1.2) * 0.015 * rippleMask * (1.0 - smoothstep(0.0, 0.9, dist));
     
     // Reconstruct twisted coordinates
     vec2 twisted = vec2(cos(angle), sin(angle)) * dist;
@@ -312,25 +314,24 @@ const VORTEX_SHADER = `
     
     // Domain warping for natural marble fluid veins
     vec2 q = vec2(
-      fbm(flowCoord - t * 0.05),
-      fbm(flowCoord + vec2(5.2, 1.3) + t * 0.03)
+      fbm(flowCoord - t * 0.04),
+      fbm(flowCoord + vec2(5.2, 1.3) + t * 0.02)
     );
     
-    vec2 r = flowCoord + q * 0.45;
+    vec2 r = flowCoord + q * 0.35;
     float f = fbm(r);
     
-    // Generate continuous, unbroken contour lines (no density fading)
-    // Subtracting time makes the waves travel continuously along the fluid flow gradient
-    float contour = sin(f * 11.0 - t * 1.2);
+    // Generate continuous, unbroken contour lines with beautiful dense spacing to avoid empty areas
+    float contour = sin(f * 18.0 - t * 1.2);
     
     // Pure monochrome black & white color scheme (no greys, vignettes, or halos)
-    // u_dark = 1.0 -> White lines on Black background
-    // u_dark = 0.0 -> Black lines on White background
+    // u_dark = 1.0 -> White lines on Solid Black background
+    // u_dark = 0.0 -> Black lines on Solid White background
     vec3 bgColor = mix(vec3(1.0), vec3(0.0), u_dark);
     vec3 lineColor = mix(vec3(0.0), vec3(1.0), u_dark);
     
-    // Draw highly anti-aliased lines with a tight transition for high contrast
-    float line = smoothstep(0.91, 0.96, abs(contour));
+    // Draw highly anti-aliased thin elegant lines (making them significantly thinner and sharper)
+    float line = smoothstep(0.965, 0.985, abs(contour));
     
     // Blend strictly between background and line color
     vec3 col = mix(bgColor, lineColor, line);
