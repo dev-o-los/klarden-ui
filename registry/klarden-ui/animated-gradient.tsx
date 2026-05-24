@@ -54,22 +54,6 @@ const MIST_SHADER = `
     return mix(x1, x2, u.y);
   }
 
-  vec4 blend_colors(vec4 c1, vec4 c2, vec4 c3, float mixer, float edgesWidth, float edge_blur) {
-      vec3 color1 = c1.rgb * c1.a;
-      vec3 color2 = c2.rgb * c2.a;
-      vec3 color3 = c3.rgb * c3.a;
-
-      float r1 = smoothstep(.0 + .35 * edgesWidth, .7 - .35 * edgesWidth + .5 * edge_blur, mixer);
-      float r2 = smoothstep(.3 + .35 * edgesWidth, 1. - .35 * edgesWidth + edge_blur, mixer);
-
-      vec3 blended_color_2 = mix(color1, color2, r1);
-      float blended_opacity_2 = mix(c1.a, c2.a, r1);
-
-      vec3 c = mix(blended_color_2, color3, r2);
-      float o = mix(blended_opacity_2, c3.a, r2);
-      return vec4(c, o);
-  }
-
   void main() {
       vec2 uv = v_uv;
 
@@ -84,6 +68,7 @@ const MIST_SHADER = `
       uv /= 1.5; // pixel ratio normalization
       uv += 0.5;
 
+      // 70% Same: Distortion & Swirl loops preserved exactly for perfect motion fidelity
       // Distortion: distortion = 4 (u_distortion = 0.08)
       float n1 = noise(uv * 1.0 + t);
       float n2 = noise(uv * 2.0 - t);
@@ -108,16 +93,48 @@ const MIST_SHADER = `
       float shape = smoothstep(0.45 - shape_scaling, 0.55 + shape_scaling, sh + 0.3 * (0.33 - 0.5));
       float mixer = shape;
 
-      // Mist colors: color1 = #050505, color2 = #FF66B8, color3 = #050505
-      vec4 u_color1 = vec4(0.0196, 0.0196, 0.0196, 1.0);
-      vec4 u_color2 = vec4(1.0, 0.4, 0.7215, 1.0);
-      vec4 u_color3 = vec4(0.0196, 0.0196, 0.0196, 1.0);
+      // 30% Premium Upgrade: Highly classy Parallax Fog & Cinematic Sweeping God Rays with Focused Ribbon
+      vec3 bg = vec3(0.0196, 0.0196, 0.0196);          // Obsidian background (#050505)
+      vec3 pink = vec3(1.0, 0.4, 0.7215);              // Pure elegant magenta core (#FF66B8)
 
-      // softness = 100 (u_softness = 1.0, edgesWidth = 0.0)
-      // edge_blur = 0.01 + 0.01 * 0.48 = 0.0148
-      vec4 color_mix = blend_colors(u_color1, u_color2, u_color3, mixer, 0.0, 0.0148);
+      // Exponent-sine bell curve to isolate mist into a beautiful center ribbon splaying dynamically
+      float mistFocus = pow(sin(mixer * PI), 4.2);
 
-      gl_FragColor = vec4(color_mix.rgb, color_mix.a);
+      // Double-layer parallax mist density (blending broad background flow and fine parallax foreground)
+      float fineMist = noise(uv * 3.5 - t * 1.3) * 0.4 + noise(uv * 1.5 + t * 0.85) * 0.6;
+      float combinedDensity = mix(mixer, fineMist, 0.28) * mistFocus;
+
+      // Smooth constant-color gradient mapping
+      vec3 col = mix(bg, pink, smoothstep(0.0, 0.85, combinedDensity));
+
+      // Foreground parallax highlight glow, strictly bounded by the mist focus ribbon
+      float highlight = smoothstep(0.42, 0.88, fineMist) * smoothstep(0.12, 0.9, mixer) * mistFocus;
+      col = mix(col, pink * 1.15, highlight * 0.35);
+
+      // Sweeping Crepuscular God Rays (light shafts filtering through the moving fog ribbon)
+      vec2 raySource = vec2(0.2, 1.25); // light source positioned above the upper-left viewport
+      vec2 rayDir = normalize(v_uv - raySource);
+      float rayAngle = atan(rayDir.y, rayDir.x);
+      
+      // Sweep modulation using multiple low-frequency time-shifted sines
+      float rays = sin(rayAngle * 6.5 + t * 0.35) * 0.35 +
+                   sin(rayAngle * 12.0 - t * 0.22) * 0.25 +
+                   sin(rayAngle * 24.0 + t * 0.15) * 0.15;
+      rays = smoothstep(0.15, 0.82, rays * 0.5 + 0.5);
+
+      // Volumetric crepuscular light soft overlay, masked by fog density and center focus ribbon
+      float rayGlow = rays * smoothstep(0.15, 0.9, combinedDensity) * (1.1 - v_uv.y) * mistFocus * 0.7;
+      col += pink * rayGlow * 0.38;
+
+      // Cinematic Haze: micro-fine glowing particulate dust in illuminated center areas
+      float grain = random(gl_FragCoord.xy * 0.15 + t * 0.05);
+      float particles = step(0.988, grain) * smoothstep(0.2, 0.9, combinedDensity);
+      col += pink * particles * 0.32;
+
+      // Final contrast optimization
+      col = pow(col, vec3(0.92));
+
+      gl_FragColor = vec4(col, 1.0);
   }
 `;
 
