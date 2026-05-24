@@ -7,7 +7,9 @@ import { cn } from "@/lib/utils";
 const presets = [
   { name: "Lava", value: "lava" },
   { name: "Mist", value: "mist" },
+  { name: "Vortex", value: "vortex" },
 ] as const;
+
 
 export default function AnimatedGradientPresetsDemo() {
   const [active, setActive] = useState<typeof presets[number]["value"]>("lava");

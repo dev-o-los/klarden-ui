@@ -5,11 +5,12 @@ import { useEffect, useRef } from "react";
 
 interface AnimatedGradientProps {
   className?: string;
-  variant?: "mist" | "lava";
+  variant?: "mist" | "lava" | "vortex";
   speed?: number;
   opacity?: number;
   children?: React.ReactNode;
 }
+
 
 const VERTEX_SHADER = `
   attribute vec2 a_position;
@@ -240,9 +241,108 @@ const LAVA_SHADER = `
   }
 `;
 
+const VORTEX_SHADER = `
+  #ifdef GL_FRAGMENT_PRECISION_HIGH
+  precision highp float;
+  #else
+  precision mediump float;
+  #endif
+
+  varying vec2 v_uv;
+  uniform float u_time;
+  uniform vec2 u_resolution;
+  uniform float u_dark;
+
+  #define PI 3.14159265358979323846
+
+  float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+  }
+
+  float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), u.x),
+               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+  }
+
+  float fbm(vec2 p) {
+    float v = 0.0;
+    float a = 0.5;
+    vec2 shift = vec2(100.0);
+    mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));
+    for (int i = 0; i < 4; ++i) {
+      v += a * noise(p);
+      p = rot * p * 2.0 + shift;
+      a *= 0.5;
+    }
+    return v;
+  }
+
+  void main() {
+    vec2 uv = v_uv;
+    float aspect = u_resolution.x / u_resolution.y;
+    
+    // Increased speed for dynamic physics
+    float t = u_time * 0.65;
+    
+    // Center of the vortex
+    vec2 center = vec2(0.5);
+    vec2 st = uv - center;
+    st.x *= aspect;
+    
+    float dist = length(st);
+    float angle = atan(st.y, st.x);
+    
+    // Natural fluid vortex swirl physics: decays smoothly away from center
+    float swirl = 3.2 / (dist + 0.3);
+    angle += swirl * 0.6 + t * 0.3;
+    
+    // Smooth fluid radial ripples
+    dist += sin(angle * 2.0 - t * 1.2) * 0.015 * (1.0 - smoothstep(0.0, 0.9, dist));
+    
+    // Reconstruct twisted coordinates
+    vec2 twisted = vec2(cos(angle), sin(angle)) * dist;
+    twisted.x /= aspect;
+    twisted += center;
+    
+    // Scale coordinates for large, beautiful topography waves
+    vec2 flowCoord = twisted * 1.5;
+    
+    // Domain warping for natural marble fluid veins
+    vec2 q = vec2(
+      fbm(flowCoord - t * 0.05),
+      fbm(flowCoord + vec2(5.2, 1.3) + t * 0.03)
+    );
+    
+    vec2 r = flowCoord + q * 0.45;
+    float f = fbm(r);
+    
+    // Generate continuous, unbroken contour lines (no density fading)
+    // Subtracting time makes the waves travel continuously along the fluid flow gradient
+    float contour = sin(f * 11.0 - t * 1.2);
+    
+    // Pure monochrome black & white color scheme (no greys, vignettes, or halos)
+    // u_dark = 1.0 -> White lines on Black background
+    // u_dark = 0.0 -> Black lines on White background
+    vec3 bgColor = mix(vec3(1.0), vec3(0.0), u_dark);
+    vec3 lineColor = mix(vec3(0.0), vec3(1.0), u_dark);
+    
+    // Draw highly anti-aliased lines with a tight transition for high contrast
+    float line = smoothstep(0.91, 0.96, abs(contour));
+    
+    // Blend strictly between background and line color
+    vec3 col = mix(bgColor, lineColor, line);
+    
+    gl_FragColor = vec4(col, 1.0);
+  }
+`;
+
 const FRAGMENT_SHADERS = {
   mist: MIST_SHADER,
   lava: LAVA_SHADER,
+  vortex: VORTEX_SHADER,
 } as const;
 
 export function AnimatedGradient({
@@ -335,6 +435,7 @@ export function AnimatedGradient({
 
     const timeLocation = gl.getUniformLocation(program, "u_time");
     const resolutionLocation = gl.getUniformLocation(program, "u_resolution");
+    const darkLocation = gl.getUniformLocation(program, "u_dark");
 
     const startTime = Date.now();
 
@@ -342,6 +443,16 @@ export function AnimatedGradient({
       const elapsed = (Date.now() - startTime) / 1000;
       gl.uniform1f(timeLocation, elapsed * speed);
       gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+
+      if (darkLocation) {
+        const isDark =
+          document.documentElement.classList.contains("dark") ||
+          document.documentElement.getAttribute("data-theme") === "dark" ||
+          (!document.documentElement.classList.contains("light") &&
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+        gl.uniform1f(darkLocation, isDark ? 1.0 : 0.0);
+      }
 
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       animationRef.current = requestAnimationFrame(render);
@@ -362,7 +473,7 @@ export function AnimatedGradient({
   }, [variant, speed]);
 
   return (
-    <div className={cn("relative overflow-hidden bg-black", className)}>
+    <div className={cn("relative overflow-hidden bg-white dark:bg-black", className)}>
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" style={{ opacity }} />
       {children && <div className="relative z-10 w-full h-full">{children}</div>}
     </div>
