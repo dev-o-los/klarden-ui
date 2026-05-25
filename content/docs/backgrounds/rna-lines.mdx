@@ -1,0 +1,62 @@
+---
+title: RNA Lines
+description: High-performance interactive glowing DNA/RNA revolving double helix strand sways.
+category: Backgrounds
+---
+
+The RNA Lines component creates glowing flowing double-helix curves with organic twisting, phase sways, and interactive pointer sways.
+
+## Preview
+
+<ComponentPreview name="rna-lines" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="rna-lines" />
+
+### Basic Example
+
+```tsx
+import { RnaLines } from "@/registry/klarden-ui/rna-lines";
+
+export default function App() {
+  return (
+    <RnaLines
+      speed={1}
+      opacity={0.8}
+      className="h-screen w-full"
+    />
+  );
+}
+```
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="speed"
+    type="number"
+    default="1"
+    description="Animation speed multiplier. Higher values = faster animation."
+  />
+  <Prop
+    name="opacity"
+    type="number"
+    default="0.8"
+    description="Canvas opacity (0-1). Use to blend with background layers."
+  />
+  <Prop
+    name="className"
+    type="string"
+    default="—"
+    description="Additional CSS classes for the container."
+  />
+  <Prop
+    name="children"
+    type="ReactNode"
+    default="—"
+    description="Overlay content to display on top of the RNA lines background."
+  />
+</PropsTable>
