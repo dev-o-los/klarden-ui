@@ -17,7 +17,7 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
   const [key, setKey] = useState(0);
 
   const Component = registry[name];
-  const isFullBleed = name.startsWith("animated-gradient");
+  const isFullBleed = name.startsWith("animated-gradient") || name.startsWith("rna-lines");
 
   const copyToClipboard = () => {
     setCopied(true);

@@ -47,4 +47,5 @@ export const registry: Record<
   "animated-gradient-presets": dynamic(
     () => import("@/registry/demos/animated-gradient-presets-demo"),
   ),
+  "rna-lines": dynamic(() => import("@/registry/demos/rna-lines-demo")),
 };

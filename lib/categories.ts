@@ -8,6 +8,7 @@ import {
   Radio,
   Rocket,
   Type,
+  Sparkles,
 } from "lucide-react";
 
 export interface CategoryMeta {
@@ -24,6 +25,7 @@ export const CATEGORIES: Record<string, CategoryMeta> = {
   Layout: { title: "Layout", icon: Grid3X3, order: 4 },
   Typography: { title: "Typography", icon: Type, order: 5 },
   Media: { title: "Media", icon: Radio, order: 6 },
+  Backgrounds: { title: "Backgrounds", icon: Sparkles, order: 7 },
 };
 
 export const FALLBACK_CATEGORY: CategoryMeta = {

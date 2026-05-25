@@ -245,6 +245,24 @@
       "dependencies": [],
       "registryDependencies": [],
       "category": "media"
+    },
+    {
+      "name": "rna-lines",
+      "type": "registry:component",
+      "title": "RNA Lines",
+      "description": "WebGL-powered dynamic revolving double helix DNA/RNA strand sways with smooth mouse pointer sways and theme switches.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/rna-lines.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "three",
+        "@types/three"
+      ],
+      "registryDependencies": [],
+      "category": "media"
     }
   ]
 }
