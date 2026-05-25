@@ -3,6 +3,7 @@
 import { AnimatedGradient } from "@/registry/klarden-ui/animated-gradient";
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const presets = [
   { name: "Lava", value: "lava" },
@@ -25,19 +26,26 @@ export default function AnimatedGradientPresetsDemo() {
       />
       
       {/* Pills Container at top center */}
-      <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 flex flex-wrap justify-center gap-1.5 p-1 bg-black/40 backdrop-blur-md rounded-full border border-white/10 max-w-[90%] sm:max-w-none">
+      <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 flex flex-nowrap items-center justify-center gap-1.5 p-1 bg-black/40 backdrop-blur-md rounded-full border border-white/10 max-w-[95%] sm:max-w-none">
         {presets.map((preset) => (
           <button
             key={preset.value}
             onClick={() => setActive(preset.value)}
             className={cn(
-              "px-3.5 py-1 text-xs font-semibold rounded-full transition-all duration-300 cursor-pointer select-none",
+              "relative px-4 py-1.5 text-xs font-semibold rounded-full transition-colors duration-300 cursor-pointer select-none whitespace-nowrap flex-shrink-0 z-10",
               active === preset.value
-                ? "bg-white text-black shadow-lg shadow-black/20"
-                : "text-zinc-400 hover:text-white hover:bg-white/5"
+                ? "text-black"
+                : "text-zinc-400 hover:text-white"
             )}
           >
-            {preset.name}
+            {active === preset.value && (
+              <motion.div
+                layoutId="activePresetBg"
+                className="absolute inset-0 bg-white rounded-full -z-10 shadow-lg shadow-black/20"
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              />
+            )}
+            <span className="relative z-10">{preset.name}</span>
           </button>
         ))}
       </div>
