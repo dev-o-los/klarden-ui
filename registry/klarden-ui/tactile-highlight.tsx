@@ -103,7 +103,7 @@ type Color = keyof typeof colorClassMap;
 type ColorClasses = (typeof colorClassMap)[Color];
 
 const getColorClasses = (color: Color): ColorClasses => {
-  return colorClassMap[color];
+  return colorClassMap[color] ?? colorClassMap.default;
 };
 
 interface TactileHighlightProps {
