@@ -117,8 +117,8 @@ interface TactileHighlightProps {
 
 /**
  * TactileHighlight - A premium animated text highlight component.
- * Uses `mix-blend-difference` to guarantee mathematically perfect contrast
- * across both Light and Dark modes dynamically.
+ * Supports directional spring reveals, hover interaction, and color variants
+ * with explicit foreground/background classes for light and dark themes.
  */
 export const TactileHighlight = ({
   children,
@@ -197,12 +197,7 @@ export const TactileHighlight = ({
         }
       />
 
-      {/* 
-        Text Layer: Always white, but uses difference blending.
-        Light Mode (White Page): White text difference White page = Black Text.
-        Dark Mode (Black Page): White text difference Black page = White Text.
-        Inside Highlight: Color perfectly inverts. 
-      */}
+      {/* Text Layer: uses the selected foreground class for contrast. */}
       <span className={cn(foreground, "relative z-10 pointer-events-none")}>
         {children}
       </span>
