@@ -1,10 +1,10 @@
 ---
 title: Tactile Highlight
-description: A fluid text highlight component that reacts to viewport visibility and user interaction.
+description: A spring-animated text highlight component with direction, trigger, and color controls.
 category: Typography
 ---
 
-The Tactile Highlight component is designed to emphasize important text with a premium, physics-based animation. It supports multiple directions and features a reactive ripple effect on hover.
+The Tactile Highlight component emphasizes important inline text with a premium, spring-driven reveal. It supports directional highlights, viewport and hover triggers, animation delays, and a wide set of color variants for light and dark themes.
 
 ## Preview
 
@@ -24,20 +24,39 @@ import { TactileHighlight } from "@/components/tactile-highlight";
 export default function App() {
   return (
     <p>
-      Our mission is to build <TactileHighlight direction="left">Better Interfaces</TactileHighlight>.
+      Our mission is to build{" "}
+      <TactileHighlight direction="left" trigger="inView" color="default">
+        Better Interfaces.
+      </TactileHighlight>
     </p>
   );
 }
 ```
 
+### Trigger Modes
+
+Use `trigger="inView"` to animate when the text enters the viewport and reset when it leaves. Use `trigger="auto"` to reveal immediately, or `trigger="hover"` to reveal on hover.
+
 ## Properties
 
 <PropsTable>
   <Prop
-    name="color"
+    name="children"
+    type="React.ReactNode"
+    default="—"
+    description="The inline text or content to highlight."
+  />
+  <Prop
+    name="className"
     type="string"
-    default='"bg-primary/20"'
-    description="The Tailwind background color class for the highlight."
+    default="—"
+    description="Additional CSS classes for the root wrapper."
+  />
+  <Prop
+    name="color"
+    type='"default" | "blue" | "purple" | "pink" | "red" | "orange" | "yellow" | "green" | "teal" | "cyan" | "indigo" | "violet" | "rose" | "amber" | "lime" | "sky" | "emerald" | "fuchsia"'
+    default='"default"'
+    description="The color variant for the highlight background and foreground text."
   />
   <Prop
     name="direction"
@@ -48,13 +67,13 @@ export default function App() {
   <Prop
     name="delay"
     type="number"
-    default="0"
+    default="0.1"
     description="Animation delay in seconds."
   />
   <Prop
-    name="triggerOnce"
-    type="boolean"
-    default="true"
-    description="Whether the animation should only trigger the first time it enters view."
+    name="trigger"
+    type='"auto" | "hover" | "inView"'
+    default='"inView"'
+    description="Controls when the highlight reveal animation is triggered."
   />
 </PropsTable>
