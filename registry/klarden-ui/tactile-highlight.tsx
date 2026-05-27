@@ -6,18 +6,119 @@ import React, { useRef } from "react";
 
 type HighlightDirection = "left" | "right" | "top" | "bottom";
 
+const colorClassMap = {
+  default: {
+    background: "bg-zinc-950 dark:bg-white",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  blue: {
+    background: "bg-blue-600 dark:bg-blue-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  purple: {
+    background: "bg-purple-800 dark:bg-purple-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  pink: {
+    background: "bg-pink-600 dark:bg-pink-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  red: {
+    background: "bg-red-600 dark:bg-red-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  orange: {
+    background: "bg-orange-600 dark:bg-orange-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  yellow: {
+    background: "bg-yellow-500 dark:bg-yellow-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  green: {
+    background: "bg-green-600 dark:bg-green-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  teal: {
+    background: "bg-teal-600 dark:bg-teal-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  cyan: {
+    background: "bg-cyan-500 dark:bg-cyan-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  indigo: {
+    background: "bg-indigo-800 dark:bg-indigo-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  violet: {
+    background: "bg-violet-600 dark:bg-violet-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  rose: {
+    background: "bg-rose-600 dark:bg-rose-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  amber: {
+    background: "bg-amber-600 dark:bg-amber-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  lime: {
+    background: "bg-lime-600 dark:bg-lime-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  sky: {
+    background: "bg-sky-600 dark:bg-sky-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  emerald: {
+    background: "bg-emerald-600 dark:bg-emerald-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  fuchsia: {
+    background: "bg-fuchsia-600 dark:bg-fuchsia-400",
+    foreground: "text-white dark:text-zinc-950",
+  },
+} as const;
+
+type Color = keyof typeof colorClassMap;
+
+type ColorClasses = (typeof colorClassMap)[Color];
+
+const getColorClasses = (color: Color): ColorClasses => {
+  return colorClassMap[color] ?? colorClassMap.default;
+};
+
 interface TactileHighlightProps {
   children: React.ReactNode;
   className?: string;
   direction?: HighlightDirection;
   delay?: number;
   trigger?: "auto" | "hover" | "inView";
+  color?: Color;
 }
 
 /**
  * TactileHighlight - A premium animated text highlight component.
- * Uses `mix-blend-difference` to guarantee mathematically perfect contrast
- * across both Light and Dark modes dynamically.
+ * Supports directional spring reveals, hover interaction, and color variants
+ * with explicit foreground/background classes for light and dark themes.
  */
 export const TactileHighlight = ({
   children,
@@ -25,12 +126,15 @@ export const TactileHighlight = ({
   direction = "left",
   delay = 0.1,
   trigger = "inView",
+  color = "default",
 }: TactileHighlightProps) => {
   const ref = useRef(null);
   // once: false allows the animation to elegantly restart when scrolling back into view
   const isInView = useInView(ref, { once: false, margin: "-10%" });
 
   const isAnimated = trigger === "auto" || (trigger === "inView" && isInView);
+
+  const { background, foreground } = getColorClasses(color);
 
   const variants: Variants = {
     hidden: {
@@ -79,7 +183,10 @@ export const TactileHighlight = ({
         animate={isAnimated ? "visible" : "hidden"}
         whileHover={trigger === "hover" ? "visible" : "hover"}
         variants={variants}
-        className="absolute inset-0 bg-zinc-950 dark:bg-white shadow-xl z-0 origin-[var(--origin-x)_var(--origin-y)]"
+        className={cn(
+          background,
+          "absolute inset-0 shadow-xl z-0 origin-[var(--origin-x)_var(--origin-y)]",
+        )}
         style={
           {
             "--origin-x":
@@ -90,13 +197,8 @@ export const TactileHighlight = ({
         }
       />
 
-      {/* 
-        Text Layer: Always white, but uses difference blending.
-        Light Mode (White Page): White text difference White page = Black Text.
-        Dark Mode (Black Page): White text difference Black page = White Text.
-        Inside Highlight: Color perfectly inverts. 
-      */}
-      <span className="relative z-10 text-white mix-blend-difference pointer-events-none">
+      {/* Text Layer: uses the selected foreground class for contrast. */}
+      <span className={cn(foreground, "relative z-10 pointer-events-none")}>
         {children}
       </span>
     </span>
