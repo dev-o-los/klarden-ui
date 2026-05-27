@@ -6,12 +6,113 @@ import React, { useRef } from "react";
 
 type HighlightDirection = "left" | "right" | "top" | "bottom";
 
+const colorClassMap = {
+  default: {
+    background: "bg-zinc-950 dark:bg-white",
+    foreground: "text-white dark:text-zinc-950",
+  },
+
+  blue: {
+    background: "bg-blue-900 dark:bg-blue-400",
+    foreground: "text-white dark:text-blue-950",
+  },
+
+  purple: {
+    background: "bg-purple-900 dark:bg-purple-400",
+    foreground: "text-white dark:text-purple-950",
+  },
+
+  pink: {
+    background: "bg-pink-900 dark:bg-pink-400",
+    foreground: "text-white dark:text-pink-950",
+  },
+
+  red: {
+    background: "bg-red-900 dark:bg-red-400",
+    foreground: "text-white dark:text-red-950",
+  },
+
+  orange: {
+    background: "bg-orange-800 dark:bg-orange-400",
+    foreground: "text-white dark:text-orange-950",
+  },
+
+  yellow: {
+    background: "bg-yellow-700 dark:bg-yellow-400",
+    foreground: "text-white dark:text-yellow-950",
+  },
+
+  green: {
+    background: "bg-green-800 dark:bg-green-400",
+    foreground: "text-white dark:text-green-950",
+  },
+
+  teal: {
+    background: "bg-teal-800 dark:bg-teal-400",
+    foreground: "text-white dark:text-teal-950",
+  },
+
+  cyan: {
+    background: "bg-cyan-800 dark:bg-cyan-400",
+    foreground: "text-white dark:text-cyan-950",
+  },
+
+  indigo: {
+    background: "bg-indigo-900 dark:bg-indigo-400",
+    foreground: "text-white dark:text-indigo-950",
+  },
+
+  violet: {
+    background: "bg-violet-900 dark:bg-violet-400",
+    foreground: "text-white dark:text-violet-950",
+  },
+
+  rose: {
+    background: "bg-rose-900 dark:bg-rose-400",
+    foreground: "text-white dark:text-rose-950",
+  },
+
+  amber: {
+    background: "bg-amber-700 dark:bg-amber-400",
+    foreground: "text-white dark:text-amber-950",
+  },
+
+  lime: {
+    background: "bg-lime-700 dark:bg-lime-400",
+    foreground: "text-white dark:text-lime-950",
+  },
+
+  sky: {
+    background: "bg-sky-800 dark:bg-sky-400",
+    foreground: "text-white dark:text-sky-950",
+  },
+
+  emerald: {
+    background: "bg-emerald-800 dark:bg-emerald-400",
+    foreground: "text-white dark:text-emerald-950",
+  },
+
+  fuchsia: {
+    background: "bg-fuchsia-900 dark:bg-fuchsia-400",
+    foreground: "text-white dark:text-fuchsia-950",
+  },
+} as const;
+
+type Color = keyof typeof colorClassMap;
+
+type ColorClasses = (typeof colorClassMap)[Color];
+
+const getColorClasses = (color: Color): ColorClasses => {
+  return colorClassMap[color];
+};
+
 interface TactileHighlightProps {
   children: React.ReactNode;
   className?: string;
   direction?: HighlightDirection;
   delay?: number;
   trigger?: "auto" | "hover" | "inView";
+  color?: Color;
 }
 
 /**
@@ -25,12 +126,15 @@ export const TactileHighlight = ({
   direction = "left",
   delay = 0.1,
   trigger = "inView",
+  color = "default",
 }: TactileHighlightProps) => {
   const ref = useRef(null);
   // once: false allows the animation to elegantly restart when scrolling back into view
   const isInView = useInView(ref, { once: false, margin: "-10%" });
 
   const isAnimated = trigger === "auto" || (trigger === "inView" && isInView);
+
+  const { background, foreground } = getColorClasses(color);
 
   const variants: Variants = {
     hidden: {
@@ -79,7 +183,10 @@ export const TactileHighlight = ({
         animate={isAnimated ? "visible" : "hidden"}
         whileHover={trigger === "hover" ? "visible" : "hover"}
         variants={variants}
-        className="absolute inset-0 bg-zinc-950 dark:bg-white shadow-xl z-0 origin-[var(--origin-x)_var(--origin-y)]"
+        className={cn(
+          background,
+          "absolute inset-0 shadow-xl z-0 origin-[var(--origin-x)_var(--origin-y)]",
+        )}
         style={
           {
             "--origin-x":
@@ -96,7 +203,7 @@ export const TactileHighlight = ({
         Dark Mode (Black Page): White text difference Black page = White Text.
         Inside Highlight: Color perfectly inverts. 
       */}
-      <span className="relative z-10 text-white mix-blend-difference pointer-events-none">
+      <span className={cn(foreground, "relative z-10 pointer-events-none")}>
         {children}
       </span>
     </span>
