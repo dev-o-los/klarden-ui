@@ -13,88 +13,88 @@ const colorClassMap = {
   },
 
   blue: {
-    background: "bg-blue-900 dark:bg-blue-400",
-    foreground: "text-white dark:text-blue-950",
+    background: "bg-blue-600 dark:bg-blue-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   purple: {
-    background: "bg-purple-900 dark:bg-purple-400",
-    foreground: "text-white dark:text-purple-950",
+    background: "bg-purple-800 dark:bg-purple-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   pink: {
-    background: "bg-pink-900 dark:bg-pink-400",
-    foreground: "text-white dark:text-pink-950",
+    background: "bg-pink-600 dark:bg-pink-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   red: {
-    background: "bg-red-900 dark:bg-red-400",
-    foreground: "text-white dark:text-red-950",
+    background: "bg-red-600 dark:bg-red-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   orange: {
-    background: "bg-orange-800 dark:bg-orange-400",
-    foreground: "text-white dark:text-orange-950",
+    background: "bg-orange-600 dark:bg-orange-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   yellow: {
-    background: "bg-yellow-700 dark:bg-yellow-400",
-    foreground: "text-white dark:text-yellow-950",
+    background: "bg-yellow-500 dark:bg-yellow-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   green: {
-    background: "bg-green-800 dark:bg-green-400",
-    foreground: "text-white dark:text-green-950",
+    background: "bg-green-600 dark:bg-green-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   teal: {
-    background: "bg-teal-800 dark:bg-teal-400",
-    foreground: "text-white dark:text-teal-950",
+    background: "bg-teal-600 dark:bg-teal-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   cyan: {
-    background: "bg-cyan-800 dark:bg-cyan-400",
-    foreground: "text-white dark:text-cyan-950",
+    background: "bg-cyan-500 dark:bg-cyan-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   indigo: {
-    background: "bg-indigo-900 dark:bg-indigo-400",
-    foreground: "text-white dark:text-indigo-950",
+    background: "bg-indigo-800 dark:bg-indigo-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   violet: {
-    background: "bg-violet-900 dark:bg-violet-400",
-    foreground: "text-white dark:text-violet-950",
+    background: "bg-violet-600 dark:bg-violet-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   rose: {
-    background: "bg-rose-900 dark:bg-rose-400",
-    foreground: "text-white dark:text-rose-950",
+    background: "bg-rose-600 dark:bg-rose-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   amber: {
-    background: "bg-amber-700 dark:bg-amber-400",
-    foreground: "text-white dark:text-amber-950",
+    background: "bg-amber-600 dark:bg-amber-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   lime: {
-    background: "bg-lime-700 dark:bg-lime-400",
-    foreground: "text-white dark:text-lime-950",
+    background: "bg-lime-600 dark:bg-lime-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   sky: {
-    background: "bg-sky-800 dark:bg-sky-400",
-    foreground: "text-white dark:text-sky-950",
+    background: "bg-sky-600 dark:bg-sky-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   emerald: {
-    background: "bg-emerald-800 dark:bg-emerald-400",
-    foreground: "text-white dark:text-emerald-950",
+    background: "bg-emerald-600 dark:bg-emerald-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 
   fuchsia: {
-    background: "bg-fuchsia-900 dark:bg-fuchsia-400",
-    foreground: "text-white dark:text-fuchsia-950",
+    background: "bg-fuchsia-600 dark:bg-fuchsia-400",
+    foreground: "text-white dark:text-zinc-950",
   },
 } as const;
 
