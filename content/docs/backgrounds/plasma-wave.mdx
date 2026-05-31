@@ -4,7 +4,7 @@ description: A WebGL-powered high-performance interactive dual-band plasma wave 
 category: Backgrounds
 ---
 
-The Plasma Wave component creates mesmerizing, high-performance dual-band plasma waves using raw WebGL shaders (optimized through the lightweight `ogl` library). It features customizable speeds, bend intensities, rotatable views, and multi-color gradient bands.
+The Plasma Wave component creates horizontally-mirrored interactive WebGL-powered dual-band plasma wave flows with custom parallax sways and lens chromatic aberrations.
 
 ## Preview
 
@@ -24,10 +24,10 @@ import { PlasmaWave } from "@/registry/klarden-ui/plasma-wave";
 export default function App() {
   return (
     <PlasmaWave
-      colors={["#A855F7", "#06B6D4"]}
-      speed1={0.05}
-      speed2={0.05}
-      focalLength={0.8}
+      colors={["#EAB308", "#E2E8F0"]}
+      speed1={0.06}
+      speed2={0.06}
+      focalLength={1.0}
       className="h-screen w-full"
     />
   );
@@ -56,46 +56,10 @@ export default function App() {
     description="Speed of the second plasma wave."
   />
   <Prop
-    name="dir2"
-    type="number"
-    default="1.0"
-    description="Direction multiplier for the second wave. Use -1 to reverse."
-  />
-  <Prop
     name="focalLength"
     type="number"
     default="0.8"
     description="Focal length of the camera projection."
-  />
-  <Prop
-    name="bend1"
-    type="number"
-    default="1"
-    description="Bend intensity of the first wave."
-  />
-  <Prop
-    name="bend2"
-    type="number"
-    default="0.5"
-    description="Bend intensity of the second wave."
-  />
-  <Prop
-    name="rotationDeg"
-    type="number"
-    default="0"
-    description="Rotation angle of the scene in degrees."
-  />
-  <Prop
-    name="xOffset"
-    type="number"
-    default="0"
-    description="Horizontal offset of the viewport."
-  />
-  <Prop
-    name="yOffset"
-    type="number"
-    default="0"
-    description="Vertical offset of the viewport."
   />
   <Prop
     name="opacity"

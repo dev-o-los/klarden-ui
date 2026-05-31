@@ -5,7 +5,7 @@ import { PlasmaWave } from "@/registry/klarden-ui/plasma-wave";
 export default function PlasmaWaveDemo() {
   return (
     <PlasmaWave
-      colors={["#A855F7", "#06B6D4"]}
+      colors={["#EAB308", "#E2E8F0"]}
       speed1={0.06}
       speed2={0.06}
       focalLength={1.0}
