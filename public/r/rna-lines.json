@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "rna-lines",
   "title": "RNA Lines",
-  "description": "WebGL-powered dynamic revolving double helix DNA/RNA strand sways with smooth mouse pointer sways and theme switches.",
+  "description": "WebGL-powered dynamic revolving double helix DNA/RNA sways with smooth mouse pointer sways and theme switches.",
   "dependencies": [
     "three",
     "@types/three"

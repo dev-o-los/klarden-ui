@@ -250,7 +250,7 @@
       "name": "rna-lines",
       "type": "registry:component",
       "title": "RNA Lines",
-      "description": "WebGL-powered dynamic revolving double helix DNA/RNA strand sways with smooth mouse pointer sways and theme switches.",
+      "description": "WebGL-powered dynamic revolving double helix DNA/RNA sways with smooth mouse pointer sways and theme switches.",
       "files": [
         {
           "path": "registry/klarden-ui/rna-lines.tsx",
@@ -260,6 +260,23 @@
       "dependencies": [
         "three",
         "@types/three"
+      ],
+      "registryDependencies": [],
+      "category": "media"
+    },
+    {
+      "name": "plasma-wave",
+      "type": "registry:component",
+      "title": "Plasma Wave",
+      "description": "A WebGL-powered interactive dual-band plasma wave animated background using ogl.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/plasma-wave.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "ogl"
       ],
       "registryDependencies": [],
       "category": "media"
