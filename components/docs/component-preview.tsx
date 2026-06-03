@@ -20,7 +20,8 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
   const isFullBleed =
     name.startsWith("animated-gradient") ||
     name.startsWith("rna-lines") ||
-    name.startsWith("plasma-wave");
+    name.startsWith("plasma-wave") ||
+    name.startsWith("ghost-ether");
 
   const copyToClipboard = () => {
     setCopied(true);

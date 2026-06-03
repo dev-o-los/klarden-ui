@@ -1,0 +1,94 @@
+---
+title: Ghost Ether
+description: WebGL-powered interactive fluid background simulation.
+category: Backgrounds
+---
+
+The Ghost Ether component creates an interactive, high-performance fluid simulation using WebGL and Three.js. It responds dynamically to user mouse pointer movements and touch gestures, injecting forces into the fluid grid.
+
+## Preview
+
+<ComponentPreview name="ghost-ether" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="ghost-ether" />
+
+### Basic Example
+
+```tsx
+import GhostEther from "@/registry/klarden-ui/ghost-ether";
+
+export default function App() {
+  return (
+    <div className="relative w-full h-[600px] bg-black">
+      <GhostEther
+        colors={["#5227FF", "#FF9FFC", "#B497CF"]}
+        mouseForce={20}
+        cursorSize={100}
+      />
+    </div>
+  );
+}
+```
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="colors"
+    type="string[]"
+    default='["#5227FF", "#FF9FFC", "#B497CF"]'
+    description="Array of hex color stops used to build the velocity-to-color mapping palette."
+  />
+  <Prop
+    name="mouseForce"
+    type="number"
+    default="20"
+    description="Strength multiplier applied to user pointer movement when injecting fluid velocity."
+  />
+  <Prop
+    name="cursorSize"
+    type="number"
+    default="100"
+    description="Radius (in pixels at base resolution) of the user pointer force brush."
+  />
+  <Prop
+    name="resolution"
+    type="number"
+    default="0.5"
+    description="Simulation texture scale relative to canvas size. Lower yields higher performance."
+  />
+  <Prop
+    name="isViscous"
+    type="boolean"
+    default="false"
+    description="Enables the iterative Gauss-Seidel viscosity solve for smoother, thicker flow."
+  />
+  <Prop
+    name="viscous"
+    type="number"
+    default="30"
+    description="Viscosity coefficient applied when isViscous is active."
+  />
+  <Prop
+    name="iterationsPoisson"
+    type="number"
+    default="32"
+    description="Number of pressure Poisson iterations to enforce fluid incompressibility."
+  />
+  <Prop
+    name="isBounce"
+    type="boolean"
+    default="false"
+    description="If active, clamps velocity boundaries at the edges instead of soft wrapping."
+  />
+  <Prop
+    name="autoDemo"
+    type="boolean"
+    default="true"
+    description="Enables idle driving of the user cursor position when no interaction occurs."
+  />
+</PropsTable>
