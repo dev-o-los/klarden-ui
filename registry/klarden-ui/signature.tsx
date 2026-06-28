@@ -182,7 +182,7 @@ export function Signature({
   glow = false,
   glowBlur = 4,
   glowColor,
-  fontUrl = "/LastoriaBoldRegular.otf",
+  fontUrl = "/Tomatoes-O8L8.ttf",
   className,
   inView = false,
   once = true,
