@@ -280,6 +280,42 @@
       ],
       "registryDependencies": [],
       "category": "media"
+    },
+    {
+      "name": "ghost-ether",
+      "type": "registry:component",
+      "title": "Ghost Ether",
+      "description": "WebGL-powered interactive fluid simulation with dynamic FBM mist and wandering spirit force trails using three.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/ghost-ether.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "three",
+        "@types/three"
+      ],
+      "registryDependencies": [],
+      "category": "media"
+    },
+    {
+      "name": "signature",
+      "type": "registry:component",
+      "title": "Signature",
+      "description": "An interactive, animated signature writing component powered by opentype.js and framer-motion.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/signature.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "opentype.js"
+      ],
+      "registryDependencies": [],
+      "category": "other"
     }
   ]
 }

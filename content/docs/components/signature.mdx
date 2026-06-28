@@ -1,0 +1,148 @@
+---
+title: Signature
+description: An interactive, animated signature writing component powered by opentype.js and framer-motion.
+category: Typography
+---
+
+The `Signature` component parses standard OpenType font files dynamically, generates SVG vector paths for input text, and progressively reveals them using stroke and fill mask animations. It is ideal for headers, landing page landing seals, certificates, or interactive landing designs.
+
+## Preview
+
+<ComponentPreview name="signature" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="signature" />
+
+### Basic Example
+
+```tsx
+import { Signature } from "@/components/klarden-ui/signature";
+
+export default function App() {
+  return (
+    <Signature
+      text="Antigravity"
+      color="#ffffff"
+      fontSize={60}
+      duration={2.0}
+    />
+  );
+}
+```
+
+### Gradient and Glow Example
+
+```tsx
+import { Signature } from "@/components/klarden-ui/signature";
+
+export default function App() {
+  return (
+    <Signature
+      text="Nebula Design"
+      gradientColors={["#c084fc", "#e879f9", "#6366f1"]}
+      fontSize={70}
+      duration={2.2}
+      glow={true}
+      glowBlur={5}
+    />
+  );
+}
+```
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="text"
+    type="string"
+    default='"Signature"'
+    description="The text to render and animate."
+  />
+  <Prop
+    name="color"
+    type="string"
+    default='"#ffffff"'
+    description="The solid color for the signature outline and fills (ignored if gradientColors is set)."
+  />
+  <Prop
+    name="gradientColors"
+    type="string[]"
+    default="undefined"
+    description="An array of color strings (e.g. ['#c084fc', '#6366f1']) to render the signature with a linear gradient."
+  />
+  <Prop
+    name="fontSize"
+    type="number"
+    default="60"
+    description="Font size of the rendered text in pixels."
+  />
+  <Prop
+    name="duration"
+    type="number"
+    default="1.5"
+    description="Duration of the drawing animation in seconds."
+  />
+  <Prop
+    name="delay"
+    type="number"
+    default="0"
+    description="Delay before starting the drawing animation in seconds."
+  />
+  <Prop
+    name="strokeWidth"
+    type="number"
+    default="1.5"
+    description="Thickness of the outline stroke drawn progressively."
+  />
+  <Prop
+    name="maskStrokeWidth"
+    type="number"
+    default="fontSize * 0.25"
+    description="Thickness of the progressive path reveal mask."
+  />
+  <Prop
+    name="glow"
+    type="boolean"
+    default="false"
+    description="Enables the neon glow drop-shadow filter effect."
+  />
+  <Prop
+    name="glowBlur"
+    type="number"
+    default="4"
+    description="Standard deviation blur for the neon glow effect."
+  />
+  <Prop
+    name="glowColor"
+    type="string"
+    default="undefined"
+    description="Custom color for the neon glow (defaults to main signature color/gradient)."
+  />
+  <Prop
+    name="fontUrl"
+    type="string"
+    default='"/Tomatoes-O8L8.ttf"'
+    description="URL of the OpenType (.otf/.ttf) cursive font file to parse."
+  />
+  <Prop
+    name="inView"
+    type="boolean"
+    default="false"
+    description="If true, starts the animation only when the signature scrolls into view."
+  />
+  <Prop
+    name="once"
+    type="boolean"
+    default="true"
+    description="If true, runs the draw animation only the first time it enters view."
+  />
+  <Prop
+    name="refreshKey"
+    type="string | number"
+    default="0"
+    description="Changing this key forces the signature to remount and replay its stroke animation."
+  />
+</PropsTable>
