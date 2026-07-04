@@ -50,6 +50,7 @@ export const registry: Record<
   "rna-lines": dynamic(() => import("@/registry/demos/rna-lines-demo")),
   "plasma-wave": dynamic(() => import("@/registry/demos/plasma-wave-demo")),
   "ghost-ether": dynamic(() => import("@/registry/demos/ghost-ether-demo")),
+  "starry-sky": dynamic(() => import("@/registry/demos/starry-sky-demo")),
   signature: dynamic(() => import("@/registry/demos/signature-demo")),
   "logo-carousel": dynamic(() => import("@/registry/demos/logo-carousel-demo")),
   "logo-carousel-right": dynamic(() => import("@/registry/demos/logo-carousel-demo-right")),

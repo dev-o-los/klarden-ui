@@ -21,7 +21,8 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
     name.startsWith("animated-gradient") ||
     name.startsWith("rna-lines") ||
     name.startsWith("plasma-wave") ||
-    name.startsWith("ghost-ether");
+    name.startsWith("ghost-ether") ||
+    name.startsWith("starry-sky");
 
   const copyToClipboard = () => {
     setCopied(true);

@@ -1,0 +1,94 @@
+---
+title: Starry Sky
+description: Three.js-powered interactive deep space starry field simulation with twinkling layers and cosmic nebulas.
+category: Backgrounds
+---
+
+The Starry Sky component creates a premium, high-performance animated starfield using Three.js. It renders multiple parallax layers of twinkling stars, realistic 4-point glint lens flares on the brightest stars, a rich background cosmic nebula glow, and smooth eased mouse-driven parallax movement.
+
+## Preview
+
+<ComponentPreview name="starry-sky" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="starry-sky" />
+
+### Basic Example
+
+```tsx
+import { StarrySky } from "@/components/starry-sky";
+
+export default function App() {
+  return (
+    <div className="relative w-full h-[600px] bg-black">
+      <StarrySky
+        speed={1.0}
+        starDensity={1.2}
+        glowIntensity={1.0}
+        nebulaIntensity={0.6}
+        interactive={true}
+        className="absolute inset-0 w-full h-full"
+      />
+      <div className="relative z-10 flex items-center justify-center h-full text-white">
+        <h1 className="text-4xl font-extrabold tracking-tight">Deep Space</h1>
+      </div>
+    </div>
+  );
+}
+```
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="speed"
+    type="number"
+    default="1"
+    description="Multiplier for the twinkling animation speed."
+  />
+  <Prop
+    name="starDensity"
+    type="number"
+    default="1"
+    description="Density factor for the generated stars. Higher values increase the visibility of stars."
+  />
+  <Prop
+    name="glowIntensity"
+    type="number"
+    default="1"
+    description="Brightness multiplier for the 4-point lens flares (glints) on the brightest stars."
+  />
+  <Prop
+    name="nebulaIntensity"
+    type="number"
+    default="0.5"
+    description="Intensity/opacity of the background multi-layered cosmic nebula cloud glow."
+  />
+  <Prop
+    name="interactive"
+    type="boolean"
+    default="true"
+    description="Enables smooth eased parallax shift responsive to mouse coordinate movement."
+  />
+  <Prop
+    name="opacity"
+    type="number"
+    default="1"
+    description="Canvas opacity value (0-1) to blend with underlying layouts."
+  />
+  <Prop
+    name="className"
+    type="string"
+    default="—"
+    description="Additional CSS classes for the container element."
+  />
+  <Prop
+    name="children"
+    type="ReactNode"
+    default="—"
+    description="Overlay layout content to be rendered on top of the starfield."
+  />
+</PropsTable>

@@ -300,6 +300,24 @@
       "category": "media"
     },
     {
+      "name": "starry-sky",
+      "type": "registry:component",
+      "title": "Starry Sky",
+      "description": "Three.js-powered interactive deep space starry field simulation with twinkling layers and cosmic nebulas.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/starry-sky.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "three",
+        "@types/three"
+      ],
+      "registryDependencies": [],
+      "category": "media"
+    },
+    {
       "name": "signature",
       "type": "registry:component",
       "title": "Signature",
