@@ -11,7 +11,6 @@ interface StarrySkyProps {
   glowIntensity?: number;
   nebulaIntensity?: number;
   interactive?: boolean;
-  shootingStars?: boolean;
   opacity?: number;
   children?: React.ReactNode;
 }
@@ -36,7 +35,6 @@ const FRAGMENT_SHADER = `
   uniform float u_glowIntensity;
   uniform float u_nebulaIntensity;
   uniform float u_isDark;
-  uniform float u_shootingStars;
 
   // Simple pseudo-random generators
   float hash21(vec2 p) {
@@ -125,40 +123,6 @@ const FRAGMENT_SHADER = `
       return col;
   }
 
-  // Shooting star (meteor) generator
-  vec3 getShootingStar(vec2 p, float time) {
-      float cycle = 7.0; // Spawns a shooting star every 7 seconds
-      float t = mod(time, cycle);
-      float id = floor(time / cycle);
-      
-      // Only active during the first 1.5 seconds of the cycle
-      if (t > 1.5) return vec3(0.0);
-      
-      // Generate pseudo-random starting point, angle, and speed based on cycle ID
-      float rand1 = hash21(vec2(id, 45.67));
-      float rand2 = hash21(vec2(id, 89.12));
-      
-      vec2 start = vec2((rand1 - 0.5) * 1.8, (rand2 - 0.5) * 1.2);
-      vec2 dir = normalize(vec2(-1.0 - rand1 * 0.4, -0.6 - rand2 * 0.3));
-      float speed = 2.0 + rand1 * 1.5;
-      
-      vec2 currentPos = start + dir * t * speed;
-      vec2 tailEnd = currentPos - dir * 0.3; // Streak length
-      
-      vec2 pa = p - tailEnd;
-      vec2 ba = currentPos - tailEnd;
-      float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
-      float d = length(pa - ba * h);
-      
-      float fade = smoothstep(0.0, 0.25, t) * smoothstep(1.5, 0.9, t);
-      float trail = pow(h, 3.0); // Needle-shaped trail
-      
-      float glow = exp(-d * 60.0) * fade * trail * 2.0;
-      vec3 color = mix(vec3(0.65, 0.85, 1.0), vec3(1.0, 1.0, 1.0), h);
-      
-      return glow * color;
-  }
-
   void main() {
       vec2 uv = v_uv;
       float aspect = u_resolution.x / u_resolution.y;
@@ -211,11 +175,6 @@ const FRAGMENT_SHADER = `
       vec2 fgP = p + u_mouse * 0.045;
       finalStars += getStarLayer(fgP, 5.0, 1.4, 90.12);
 
-      // Add shooting stars in the foreground layer
-      if (u_shootingStars > 0.5) {
-          finalStars += getShootingStar(fgP, u_time);
-      }
-
       // 3. Combine Background and Stars
       vec3 finalColor;
       if (u_isDark > 0.5) {
@@ -240,7 +199,6 @@ export function StarrySky({
   glowIntensity = 1,
   nebulaIntensity = 0.5,
   interactive = true,
-  shootingStars = true,
   opacity = 1,
   children,
 }: StarrySkyProps) {
@@ -257,7 +215,6 @@ export function StarrySky({
     u_glowIntensity: { value: number };
     u_nebulaIntensity: { value: number };
     u_isDark: { value: number };
-    u_shootingStars: { value: number };
   } | null>(null);
 
   const interactiveRef = useRef(interactive);
@@ -291,9 +248,8 @@ export function StarrySky({
       uniformsRef.current.u_glowIntensity.value = glowIntensity;
       uniformsRef.current.u_nebulaIntensity.value = nebulaIntensity;
       uniformsRef.current.u_isDark.value = darkTheme ? 1.0 : 0.0;
-      uniformsRef.current.u_shootingStars.value = shootingStars ? 1.0 : 0.0;
     }
-  }, [speed, starDensity, glowIntensity, nebulaIntensity, darkTheme, shootingStars]);
+  }, [speed, starDensity, glowIntensity, nebulaIntensity, darkTheme]);
 
   // Handle mouse movements
   useEffect(() => {
@@ -332,10 +288,10 @@ export function StarrySky({
       const width = container.clientWidth;
       const height = container.clientHeight;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      
+
       renderer.setSize(width, height, false);
       renderer.setPixelRatio(dpr);
-      
+
       material.uniforms.u_resolution.value.set(width * dpr, height * dpr);
     };
 
@@ -349,7 +305,6 @@ export function StarrySky({
       u_glowIntensity: { value: glowIntensity },
       u_nebulaIntensity: { value: nebulaIntensity },
       u_isDark: { value: darkTheme ? 1.0 : 0.0 },
-      u_shootingStars: { value: shootingStars ? 1.0 : 0.0 },
     };
     uniformsRef.current = uniforms;
 
@@ -367,7 +322,7 @@ export function StarrySky({
     scene.add(mesh);
 
     resize();
-    
+
     // Add resize observer to resize dynamically
     const resizeObserver = new ResizeObserver(() => resize());
     resizeObserver.observe(container);
@@ -400,7 +355,7 @@ export function StarrySky({
         cancelAnimationFrame(animationFrameId);
       }
       resizeObserver.disconnect();
-      
+
       // Dispose Three.js objects to prevent memory leaks
       geometry.dispose();
       material.dispose();
