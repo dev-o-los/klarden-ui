@@ -22,7 +22,8 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
     name.startsWith("rna-lines") ||
     name.startsWith("plasma-wave") ||
     name.startsWith("ghost-ether") ||
-    name.startsWith("starry-sky");
+    name.startsWith("starry-sky") ||
+    name.startsWith("image-trail");
 
   const copyToClipboard = () => {
     setCopied(true);

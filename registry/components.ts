@@ -54,4 +54,5 @@ export const registry: Record<
   signature: dynamic(() => import("@/registry/demos/signature-demo")),
   "logo-carousel": dynamic(() => import("@/registry/demos/logo-carousel-demo")),
   "logo-carousel-right": dynamic(() => import("@/registry/demos/logo-carousel-demo-right")),
+  "image-trail": dynamic(() => import("@/registry/demos/image-trail-demo")),
 };

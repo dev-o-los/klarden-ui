@@ -444,6 +444,48 @@
       "dependencies": [],
       "registryDependencies": [],
       "category": "media"
+    },
+    {
+      "name": "image-trail",
+      "type": "registry:component",
+      "title": "Image Trail",
+      "description": "An interactive mouse-tracking image trail with smooth momentum and stacking options.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/image-trail.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "public/images/trail-1.jpg",
+          "type": "registry:file",
+          "target": "public/images/trail-1.jpg"
+        },
+        {
+          "path": "public/images/trail-2.jpg",
+          "type": "registry:file",
+          "target": "public/images/trail-2.jpg"
+        },
+        {
+          "path": "public/images/trail-3.jpg",
+          "type": "registry:file",
+          "target": "public/images/trail-3.jpg"
+        },
+        {
+          "path": "public/images/trail-4.jpg",
+          "type": "registry:file",
+          "target": "public/images/trail-4.jpg"
+        },
+        {
+          "path": "public/images/trail-5.jpg",
+          "type": "registry:file",
+          "target": "public/images/trail-5.jpg"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [],
+      "category": "media"
     }
   ]
 }

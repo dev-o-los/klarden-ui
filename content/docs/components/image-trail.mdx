@@ -1,0 +1,95 @@
+---
+title: Image Trail
+description: An interactive mouse-tracking image trail with smooth momentum and customizable stack ordering.
+category: Media
+---
+
+The ImageTrail is an interactive component that displays a trail of images following the user's mouse cursor with physics-based momentum. It supports customized keyframe animations, distance thresholds, and custom stacking orders.
+
+## Preview
+
+<ComponentPreview name="image-trail" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="image-trail" />
+
+### Basic Example
+
+```tsx
+import { ImageTrail, ImageTrailItem } from "@/components/image-trail";
+
+const IMAGES = [
+  "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=400",
+  "https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=400",
+  "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=400",
+];
+
+export default function App() {
+  return (
+    <ImageTrail
+      threshold={80}
+      intensity={0.2}
+      keyframes={{
+        scale: [0.3, 1, 1, 0],
+        opacity: [0, 1, 1, 0],
+      }}
+    >
+      {IMAGES.map((src, index) => (
+        <ImageTrailItem key={index} className="w-32 h-32 shadow-lg">
+          <img src={src} alt="trail item" className="w-full h-full object-cover" />
+        </ImageTrailItem>
+      ))}
+    </ImageTrail>
+  );
+}
+```
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="threshold"
+    type="number"
+    default="100"
+    description="Distance in pixels the mouse must travel before the next trail element is spawned."
+  />
+  <Prop
+    name="intensity"
+    type="number"
+    default="0.3"
+    description="The momentum/damping factor for tracking. Clamped between 0.0001 and 1.0. A lower value makes movement slower and smoother."
+  />
+  <Prop
+    name="keyframes"
+    type="DOMKeyframesDefinition"
+    default="undefined"
+    description="Framer Motion keyframes to define custom scale, rotation, opacity, etc., animation sequences."
+  />
+  <Prop
+    name="keyframesOptions"
+    type="AnimationOptions"
+    default="undefined"
+    description="Framer Motion options (duration, easing, times) for the keyframes animation."
+  />
+  <Prop
+    name="repeatChildren"
+    type="number"
+    default="3"
+    description="The number of times the children array is repeated. Increase this to avoid trail gaps if moving fast."
+  />
+  <Prop
+    name="baseZIndex"
+    type="number"
+    default="0"
+    description="The baseline z-index offset for the trailing elements."
+  />
+  <Prop
+    name="zIndexDirection"
+    type='"new-on-top" | "old-on-top"'
+    default='"new-on-top"'
+    description="Controls stacking order: 'new-on-top' keeps new trail items above old ones, 'old-on-top' keeps older items on top."
+  />
+</PropsTable>
