@@ -32,7 +32,7 @@ export function Navbar() {
               Docs
             </Link>
             <Link
-              href="/docs/components/accordion"
+              href="/docs/components/rich-button"
               className="hover:text-primary transition-colors"
             >
               Components
