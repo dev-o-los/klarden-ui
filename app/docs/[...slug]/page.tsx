@@ -1,11 +1,12 @@
 import { mdxComponents } from "@/components/docs/mdx-components";
 import { getAdjacentDocs, getDocBySlug, getDocSlugs } from "@/lib/docs";
 import { SITE_CONFIG } from "@/lib/constants";
-import { ChevronLeft, ChevronRight, Copy } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { OpenInChatGPTButton } from "@/components/docs/open-in-chatgpt-button";
 
 interface PageProps {
   params: Promise<{
@@ -123,13 +124,7 @@ export default async function DocPage({ params }: PageProps) {
 
         {/* Page Actions - Compact & Single Line */}
         <div className="flex items-center gap-2 shrink-0">
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[10px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-primary transition-all whitespace-nowrap active:scale-95 shadow-xs">
-            <Copy size={12} />
-            <span>Copy Page</span>
-            <div className="ml-1 pl-1 border-l border-zinc-200 dark:border-zinc-800">
-              <ChevronRight size={12} className="rotate-90 opacity-40" />
-            </div>
-          </button>
+          <OpenInChatGPTButton title={doc.title} description={doc.description} url={`${SITE_CONFIG.url}/docs/${doc.slug}`} />
 
           <div className="flex items-center gap-1">
             {prev ? (
