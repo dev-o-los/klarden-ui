@@ -27,9 +27,9 @@ export default function Home() {
             <div className="space-y-6">
               <div className="flex items-center group cursor-default -ml-2">
                 <LogoIcon className="size-12 text-foreground transition-all duration-300 group-hover:rotate-12 group-hover:scale-110" />
-                <span className="text-xl md:text-2xl font-black text-foreground tracking-tighter leading-none -ml-2">
+                <span className="text-xl md:text-2xl font-bold text-foreground tracking-tighter leading-none -ml-2">
                   {SITE_CONFIG.name.split(" ")[0]}
-                  <span className="text-muted-foreground font-bold ml-1">
+                  <span className="text-muted-foreground font-medium ml-1">
                     {SITE_CONFIG.name.split(" ")[1]}
                   </span>
                 </span>

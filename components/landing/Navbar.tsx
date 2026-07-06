@@ -17,9 +17,9 @@ export function Navbar() {
           <MobileNav items={docs} />
           <Link href="/" className="flex items-center group -ml-2">
             <LogoIcon className="size-12 text-foreground group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" />
-            <span className="text-xl md:text-xl font-black text-foreground tracking-tighter leading-none -ml-2">
+            <span className="text-xl md:text-xl font-bold text-foreground tracking-tighter leading-none -ml-2">
               {SITE_CONFIG.name.split(" ")[0]}
-              <span className="text-muted-foreground font-bold ml-1">
+              <span className="text-muted-foreground font-medium ml-1">
                 {SITE_CONFIG.name.split(" ")[1]}
               </span>
             </span>

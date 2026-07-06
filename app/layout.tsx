@@ -1,11 +1,16 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { SITE_CONFIG } from "@/lib/constants";
 import type { Metadata } from "next";
-import { Bricolage_Grotesque } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Bricolage_Grotesque({
-  variable: "--font-bricolage-grotesque",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -68,7 +73,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} font-sans antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -42,7 +42,7 @@ export function Showcase() {
           <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
             <MousePointer2 size={10} /> Interactive
           </div>
-          <h3 className="text-xl font-black tracking-tight">Command Orbit</h3>
+          <h3 className="text-xl font-bold tracking-tight">Command Orbit</h3>
         </div>
         <div className="flex items-center justify-center min-h-80 p-6">
           <CommandOrbit radius={90} className="scale-75 sm:scale-100" />
@@ -57,7 +57,7 @@ export function Showcase() {
         <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-4 w-fit shadow-xs">
           <Layout size={10} /> Structure
         </div>
-        <h3 className="text-xl font-black tracking-tight mb-6">
+        <h3 className="text-xl font-bold tracking-tight mb-6">
           Tactile Accordion
         </h3>
         <Accordion type="single" collapsible className="w-full">
@@ -89,7 +89,7 @@ export function Showcase() {
           <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
             <Zap size={10} /> Media
           </div>
-          <h3 className="text-xl font-black tracking-tight">Spotify Card</h3>
+          <h3 className="text-xl font-bold tracking-tight">Spotify Card</h3>
         </div>
         <div className="mt-12 scale-90 xl:scale-100 transition-transform">
           <SpotifyCard trackUrl="https://open.spotify.com/track/7EW7Yivb93qKAtp5qEm5of?si=301fefb2256f44cd" />
@@ -105,7 +105,7 @@ export function Showcase() {
           <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
             <MousePointer2 size={10} /> Proximity
           </div>
-          <h3 className="text-xl font-black tracking-tight">Magnetic Dock</h3>
+          <h3 className="text-xl font-bold tracking-tight">Magnetic Dock</h3>
         </div>
         <div className="mt-20 md:mt-12 scale-75 sm:scale-90 lg:scale-100">
           <MagneticDock magnification={70} distance={120} />
@@ -121,7 +121,7 @@ export function Showcase() {
           <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
             <MousePointer2 size={10} /> Menu
           </div>
-          <h3 className="text-xl font-black tracking-tight">Context Menu</h3>
+          <h3 className="text-xl font-bold tracking-tight">Context Menu</h3>
         </div>
         <div className="w-full max-w-sm mt-16 md:mt-12">
           <OrbitContextMenu>
@@ -151,10 +151,10 @@ export function Showcase() {
           <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
             <Type size={10} /> Typography
           </div>
-          <h3 className="text-xl font-black tracking-tight">Tactile Text</h3>
+          <h3 className="text-xl font-bold tracking-tight">Tactile Text</h3>
         </div>
         <div className="flex-1 flex items-center justify-center py-6 px-4">
-          <div className="text-2xl md:text-3xl font-black tracking-tighter text-zinc-900 dark:text-zinc-50 text-center leading-tight">
+          <div className="text-2xl md:text-3xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-50 text-center leading-tight">
             Build{" "}
             <TactileHighlight direction="left">
               Better Interfaces
@@ -172,7 +172,7 @@ export function Showcase() {
           <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
             <Zap size={10} /> Varieties
           </div>
-          <h3 className="text-xl font-black tracking-tight">Glossy Buttons</h3>
+          <h3 className="text-xl font-bold tracking-tight">Glossy Buttons</h3>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mt-10 md:mt-8">

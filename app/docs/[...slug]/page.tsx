@@ -112,7 +112,7 @@ export default async function DocPage({ params }: PageProps) {
       {/* Page Header - Tighter layout */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1.5">
-          <h1 className="text-3xl font-black tracking-tighter text-zinc-900 dark:text-zinc-50">
+          <h1 className="text-3xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-50">
             {doc.title}
           </h1>
           {doc.description && (
