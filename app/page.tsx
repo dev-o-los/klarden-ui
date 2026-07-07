@@ -100,11 +100,11 @@ export default function Home() {
                     Components
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link href="#" className="hover:text-foreground transition-colors">
                     MCP
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link href="#" className="hover:text-foreground transition-colors">
                     Sponsor
