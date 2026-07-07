@@ -129,7 +129,7 @@ export default function Home() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://threads.net" target="_blank" className="hover:text-foreground transition-colors">
+                  <Link href="https://www.threads.com/@utkrr.sh" target="_blank" className="hover:text-foreground transition-colors">
                     Threads
                   </Link>
                 </li>
