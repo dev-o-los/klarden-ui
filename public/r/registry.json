@@ -187,6 +187,21 @@
       "category": "typography"
     },
     {
+      "name": "basic-number-ticker",
+      "type": "registry:component",
+      "title": "Basic Number Ticker",
+      "description": "An animated number ticker component with customizable start, target, transitions, and callbacks.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/basic-number-ticker.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["framer-motion"],
+      "registryDependencies": [],
+      "category": "typography"
+    },
+    {
       "name": "label-input",
       "type": "registry:component",
       "title": "Label Input",
