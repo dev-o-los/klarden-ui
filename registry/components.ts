@@ -24,6 +24,10 @@ export const registry: Record<
   "shimmer-text-variants": dynamic(
     () => import("@/registry/demos/shimmer-text-variants-demo"),
   ),
+  "basic-number-ticker": dynamic(() => import("@/registry/demos/basic-number-ticker-demo")),
+  "basic-number-ticker-variants": dynamic(
+    () => import("@/registry/demos/basic-number-ticker-variants-demo"),
+  ),
   "label-input": dynamic(() => import("@/registry/demos/label-input-demo")),
   "label-input-colors": dynamic(
     () => import("@/registry/demos/label-input-colors-demo"),
