@@ -15,7 +15,7 @@ export function ModeToggle() {
 
   if (!mounted) {
     return (
-      <div className="h-9 w-9 rounded-md border border-input bg-background" />
+      <div className="h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 shadow-xs" />
     );
   }
 
@@ -26,7 +26,7 @@ export function ModeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="relative h-9 w-9 flex items-center justify-center rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors group overflow-hidden"
+      className="relative h-9 w-9 flex items-center justify-center rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 cursor-pointer shadow-xs group overflow-hidden"
       aria-label="Toggle theme"
     >
       <AnimatePresence mode="wait" initial={false}>
@@ -38,7 +38,7 @@ export function ModeToggle() {
             exit={{ y: -20, opacity: 0, rotate: -45 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >
-            <Moon size={18} className="text-muted-foreground group-hover:text-accent-foreground transition-colors" />
+            <Moon size={18} className="text-muted-foreground group-hover:text-foreground transition-colors" />
           </motion.div>
         ) : (
           <motion.div
@@ -48,7 +48,7 @@ export function ModeToggle() {
             exit={{ y: -20, opacity: 0, rotate: -45 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >
-            <Sun size={18} className="text-muted-foreground group-hover:text-accent-foreground transition-colors" />
+            <Sun size={18} className="text-muted-foreground group-hover:text-foreground transition-colors" />
           </motion.div>
         )}
       </AnimatePresence>

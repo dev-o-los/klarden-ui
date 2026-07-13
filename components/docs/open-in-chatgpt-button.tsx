@@ -24,9 +24,9 @@ Could you please explain this component in detail, what it is all about, and pro
   return (
     <button
       onClick={handleOpen}
-      className="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-background text-xs font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors active:scale-95 shadow-xs cursor-pointer group"
+      className="inline-flex items-center gap-2 h-9 px-3.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-xs font-medium text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 active:scale-95 shadow-xs cursor-pointer group"
     >
-      <BrandOpenaiIcon size={14} color="currentColor" className="h-3.5 w-3.5 shrink-0 text-muted-foreground group-hover:text-accent-foreground transition-colors" />
+      <BrandOpenaiIcon size={13} color="currentColor" className="h-3.5 w-3.5 shrink-0 text-muted-foreground/80 group-hover:text-foreground transition-colors" />
       <span>Open in ChatGPT</span>
     </button>
   );

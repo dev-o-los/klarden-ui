@@ -45,11 +45,11 @@ export function GitHubStarButton({
       <Link
         href="https://github.com/dev-o-los/klarden-ui"
         target="_blank"
-        className={`inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md border border-input bg-background text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors ${
-          size === "sm" ? "h-8 px-3 text-xs" : ""
+        className={`inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-xs text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 cursor-pointer shadow-xs ${
+          size === "sm" ? "h-8 px-3" : "h-9 px-3.5"
         } ${className}`}
       >
-        <Github size={size === "sm" ? 14 : 16} />
+        <Github size={size === "sm" ? 13 : 15} />
         <span className="h-4 w-8 animate-pulse rounded bg-muted"></span>
       </Link>
     );
@@ -59,11 +59,11 @@ export function GitHubStarButton({
     <Link
       href="https://github.com/dev-o-los/klarden-ui"
       target="_blank"
-      className={`inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md border border-input bg-background text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors ${
-        size === "sm" ? "h-8 px-3 text-xs" : ""
+      className={`inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-xs text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 cursor-pointer shadow-xs ${
+        size === "sm" ? "h-8 px-3" : "h-9 px-3.5"
       } ${className}`}
     >
-      <Github size={size === "sm" ? 14 : 16} />
+      <Github size={size === "sm" ? 13 : 15} />
       <span className="font-medium">{formatStars(stars)}</span>
     </Link>
   );

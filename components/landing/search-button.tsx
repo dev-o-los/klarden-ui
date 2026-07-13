@@ -13,14 +13,14 @@ export function SearchButton({ className, onOpen }: SearchButtonProps) {
     <button
       onClick={() => onOpen?.()}
       className={cn(
-        "hidden sm:inline-flex items-center gap-2 h-9 w-64 px-4 rounded-md border border-input bg-background text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer justify-between",
+        "hidden sm:inline-flex items-center gap-2 h-9 w-64 pl-3.5 pr-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-xs text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 cursor-pointer justify-between shadow-xs",
         className,
       )}
     >
-      <Search size={14} />
-      <span className="flex-1 text-left">Search docs...</span>
-      <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-        <span className="text-xs">⌘</span>K
+      <Search size={13} className="text-muted-foreground shrink-0" />
+      <span className="flex-1 text-left font-medium">Search docs...</span>
+      <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-0.5 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 px-1.5 font-mono text-[9px] font-medium text-muted-foreground/80">
+        <span className="text-[10px] font-sans">⌘</span>K
       </kbd>
     </button>
   );

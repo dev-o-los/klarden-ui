@@ -130,28 +130,28 @@ export default async function DocPage({ params }: PageProps) {
             {prev ? (
               <Link
                 href={`/docs/${prev.slug}`}
-                className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors active:scale-95 shadow-xs"
+                className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 active:scale-95 shadow-xs cursor-pointer"
                 title={`Prev: ${prev.title}`}
               >
-                <ChevronLeft size={16} />
+                <ChevronLeft size={14} />
               </Link>
             ) : (
-              <div className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-input bg-background opacity-20 text-muted-foreground cursor-not-allowed">
-                <ChevronLeft size={16} />
+              <div className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 opacity-30 text-muted-foreground/40 cursor-not-allowed">
+                <ChevronLeft size={14} />
               </div>
             )}
 
             {next ? (
               <Link
                 href={`/docs/${next.slug}`}
-                className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors active:scale-95 shadow-xs"
+                className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 active:scale-95 shadow-xs cursor-pointer"
                 title={`Next: ${next.title}`}
               >
-                <ChevronRight size={16} />
+                <ChevronRight size={14} />
               </Link>
             ) : (
-              <div className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-input bg-background opacity-20 text-muted-foreground cursor-not-allowed">
-                <ChevronRight size={16} />
+              <div className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 opacity-30 text-muted-foreground/40 cursor-not-allowed">
+                <ChevronRight size={14} />
               </div>
             )}
           </div>
