@@ -501,6 +501,54 @@
       ],
       "registryDependencies": [],
       "category": "media"
+    },
+    {
+      "name": "box-carousel",
+      "type": "registry:component",
+      "title": "Box Carousel",
+      "description": "A beautiful 3D rotating box/cube carousel with smooth drag gestures, arrow navigation, auto-play, and custom card rendering.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/box-carousel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "public/images/box-carousel-1.jpg",
+          "type": "registry:file",
+          "target": "public/images/box-carousel-1.jpg"
+        },
+        {
+          "path": "public/images/box-carousel-2.jpg",
+          "type": "registry:file",
+          "target": "public/images/box-carousel-2.jpg"
+        },
+        {
+          "path": "public/images/box-carousel-3.jpg",
+          "type": "registry:file",
+          "target": "public/images/box-carousel-3.jpg"
+        },
+        {
+          "path": "public/images/box-carousel-4.jpg",
+          "type": "registry:file",
+          "target": "public/images/box-carousel-4.jpg"
+        },
+        {
+          "path": "public/images/box-carousel-5.jpg",
+          "type": "registry:file",
+          "target": "public/images/box-carousel-5.jpg"
+        },
+        {
+          "path": "public/images/box-carousel-6.jpg",
+          "type": "registry:file",
+          "target": "public/images/box-carousel-6.jpg"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "category": "media"
     }
   ]
 }
