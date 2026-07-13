@@ -32,6 +32,28 @@ function getDemoSourceCode(name: string): string | null {
   }
 }
 
+function slugify(node: React.ReactNode): string {
+  if (!node) return "";
+  if (typeof node === "string") {
+    return node
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+  if (typeof node === "number") {
+    return String(node);
+  }
+  if (Array.isArray(node)) {
+    return node.map(slugify).join("");
+  }
+  if (React.isValidElement(node)) {
+    return slugify((node as React.ReactElement<any>).props.children);
+  }
+  return "";
+}
+
 async function DemoCodeBlock({ sourceCode }: { sourceCode: string }) {
   return <CodeBlock code={sourceCode} language="tsx" />;
 }
@@ -59,24 +81,36 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  h2: ({ className, ...props }: ComponentProps) => (
-    <h2
-      className={cn(
-        "mt-12 scroll-m-20 border-b border-zinc-200 dark:border-zinc-800 pb-2 text-2xl font-semibold tracking-wide text-zinc-900 dark:text-zinc-50 first:mt-0",
-        className,
-      )}
-      {...props}
-    />
-  ),
-  h3: ({ className, ...props }: ComponentProps) => (
-    <h3
-      className={cn(
-        "mt-8 scroll-m-20 text-xl font-semibold tracking-wide text-zinc-900 dark:text-zinc-50",
-        className,
-      )}
-      {...props}
-    />
-  ),
+  h2: ({ className, children, ...props }: ComponentProps) => {
+    const id = slugify(children);
+    return (
+      <h2
+        id={id}
+        className={cn(
+          "mt-12 scroll-m-20 border-b border-zinc-200 dark:border-zinc-800 pb-2 text-2xl font-semibold tracking-wide text-zinc-900 dark:text-zinc-50 first:mt-0",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </h2>
+    );
+  },
+  h3: ({ className, children, ...props }: ComponentProps) => {
+    const id = slugify(children);
+    return (
+      <h3
+        id={id}
+        className={cn(
+          "mt-8 scroll-m-20 text-xl font-semibold tracking-wide text-zinc-900 dark:text-zinc-50",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </h3>
+    );
+  },
   p: ({ className, ...props }: ComponentProps) => (
     <p
       className={cn(
