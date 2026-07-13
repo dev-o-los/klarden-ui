@@ -58,7 +58,7 @@ export function Hero() {
             Get Started <ArrowRight size={16} className="ml-2" />
           </RichButton>
         </Link>
-        <Link href="/docs/components/accordion">
+        <Link href="/docs/components/rich-button">
           <RichButton
             size="default"
             color="blue"

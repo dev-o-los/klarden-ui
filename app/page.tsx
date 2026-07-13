@@ -97,7 +97,7 @@ export default function Home() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/docs/components/accordion" className="hover:text-foreground transition-colors">
+                  <Link href="/docs/components/rich-button" className="hover:text-foreground transition-colors">
                     Components
                   </Link>
                 </li>
