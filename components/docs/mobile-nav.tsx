@@ -118,11 +118,27 @@ export function MobileNav({ items }: MobileNavProps) {
                   <div className="space-y-8 pb-10">
                     {sortedEntries.map(([category, docs]) => {
                       const { icon: Icon, title } = getCategoryMeta(category);
+                      const hasActiveChild = docs.some((doc) => pathname === `/docs/${doc.slug}`);
                       return (
                         <div key={category}>
-                          <div className="flex items-center gap-2 mb-4 px-2">
-                            <Icon size={14} className="text-zinc-400" />
-                            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">
+                          <div className="flex items-center gap-2 mb-3 px-2">
+                            <Icon
+                              size={15}
+                              className={cn(
+                                "transition-colors duration-300",
+                                hasActiveChild
+                                  ? "text-primary"
+                                  : "text-zinc-400 dark:text-zinc-500"
+                              )}
+                            />
+                            <h4
+                              className={cn(
+                                "text-[10px] uppercase tracking-[0.2em] transition-colors duration-300",
+                                hasActiveChild
+                                  ? "font-extrabold text-zinc-900 dark:text-zinc-100"
+                                  : "font-semibold text-zinc-400 dark:text-zinc-500"
+                              )}
+                            >
                               {title}
                             </h4>
                           </div>

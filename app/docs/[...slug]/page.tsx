@@ -130,28 +130,28 @@ export default async function DocPage({ params }: PageProps) {
             {prev ? (
               <Link
                 href={`/docs/${prev.slug}`}
-                className="p-2 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-primary transition-all active:scale-90 shadow-xs"
+                className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors active:scale-95 shadow-xs"
                 title={`Prev: ${prev.title}`}
               >
-                <ChevronLeft size={14} />
+                <ChevronLeft size={16} />
               </Link>
             ) : (
-              <div className="p-2 rounded-lg opacity-20 border border-zinc-200 dark:border-zinc-800 cursor-not-allowed">
-                <ChevronLeft size={14} />
+              <div className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-input bg-background opacity-20 text-muted-foreground cursor-not-allowed">
+                <ChevronLeft size={16} />
               </div>
             )}
 
             {next ? (
               <Link
                 href={`/docs/${next.slug}`}
-                className="p-2 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-primary transition-all active:scale-90 shadow-xs"
+                className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors active:scale-95 shadow-xs"
                 title={`Next: ${next.title}`}
               >
-                <ChevronRight size={14} />
+                <ChevronRight size={16} />
               </Link>
             ) : (
-              <div className="p-2 rounded-lg opacity-20 border border-zinc-200 dark:border-zinc-800 cursor-not-allowed">
-                <ChevronRight size={14} />
+              <div className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-input bg-background opacity-20 text-muted-foreground cursor-not-allowed">
+                <ChevronRight size={16} />
               </div>
             )}
           </div>

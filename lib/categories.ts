@@ -1,14 +1,13 @@
 import {
   Compass,
-  Grid3X3,
-  Keyboard,
-  LucideIcon,
-  MousePointer2,
-  Navigation2,
-  Radio,
-  Rocket,
-  Type,
+  MousePointerClick,
+  Sliders,
+  Route,
+  LayoutGrid,
+  Baseline,
+  GalleryHorizontal,
   Sparkles,
+  LucideIcon,
 } from "lucide-react";
 
 export interface CategoryMeta {
@@ -18,13 +17,13 @@ export interface CategoryMeta {
 }
 
 export const CATEGORIES: Record<string, CategoryMeta> = {
-  "Getting Started": { title: "Getting Started", icon: Rocket, order: 0 },
-  Button: { title: "Button", icon: MousePointer2, order: 1 },
-  Form: { title: "Form", icon: Keyboard, order: 2 },
-  Navigation: { title: "Navigation", icon: Navigation2, order: 3 },
-  Layout: { title: "Layout", icon: Grid3X3, order: 4 },
-  Typography: { title: "Typography", icon: Type, order: 5 },
-  Media: { title: "Media", icon: Radio, order: 6 },
+  "Getting Started": { title: "Getting Started", icon: Compass, order: 0 },
+  Button: { title: "Buttons", icon: MousePointerClick, order: 1 },
+  Form: { title: "Forms", icon: Sliders, order: 2 },
+  Navigation: { title: "Navigation", icon: Route, order: 3 },
+  Layout: { title: "Layouts", icon: LayoutGrid, order: 4 },
+  Typography: { title: "Typography", icon: Baseline, order: 5 },
+  Media: { title: "Media", icon: GalleryHorizontal, order: 6 },
   Backgrounds: { title: "Backgrounds", icon: Sparkles, order: 7 },
 };
 
