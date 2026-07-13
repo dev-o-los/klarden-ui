@@ -59,4 +59,6 @@ export const registry: Record<
   "logo-carousel": dynamic(() => import("@/registry/demos/logo-carousel-demo")),
   "logo-carousel-right": dynamic(() => import("@/registry/demos/logo-carousel-demo-right")),
   "image-trail": dynamic(() => import("@/registry/demos/image-trail-demo")),
+  "box-carousel": dynamic(() => import("@/registry/demos/box-carousel-demo")),
+  "box-carousel-variants": dynamic(() => import("@/registry/demos/box-carousel-variants-demo")),
 };

@@ -1,0 +1,118 @@
+---
+title: Box Carousel
+description: A premium 3D rotating cube/box carousel component with smooth drag interactions, keyboard support, auto-play, and custom card renders.
+category: Media
+---
+
+The `BoxCarousel` component creates a stunning 3D rotating box/cube interface. Utilizing CSS 3D transforms (`preserve-3d`) and Framer Motion's physics engines, it delivers smooth drag rotations, auto-snapping, arrow key navigation, and dynamic content rendering.
+
+## Preview
+
+<ComponentPreview name="box-carousel" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="box-carousel" />
+
+### Basic Example
+
+```tsx
+import BoxCarousel from "@/components/ui/box-carousel";
+
+const ITEMS = [
+  { id: "1", type: "image", src: "/images/slide-1.jpg", alt: "Slide 1" },
+  { id: "2", type: "image", src: "/images/slide-2.jpg", alt: "Slide 2" },
+  { id: "3", type: "image", src: "/images/slide-3.jpg", alt: "Slide 3" },
+  { id: "4", type: "image", src: "/images/slide-4.jpg", alt: "Slide 4" },
+];
+
+export default function App() {
+  return (
+    <BoxCarousel
+      items={ITEMS}
+      width={300}
+      height={300}
+      direction="left"
+    />
+  );
+}
+```
+
+## Interactive Premium Variant
+
+This interactive demo showcases the `renderItem` feature of the Box Carousel. It renders highly styled tech cards (using glassmorphism and custom gradients) on each face of the 3D cube, and exposes direction selectors, auto-play triggers, and slide indicator dots.
+
+<ComponentPreview name="box-carousel-variants" />
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="items"
+    type="CarouselItem[]"
+    default="[]"
+    description="An array of carousel items, where each item contains an id, type ('image' | 'video'), src, and optional alt text."
+  />
+  <Prop
+    name="width"
+    type="number"
+    default="—"
+    description="The width of the 3D carousel in pixels."
+  />
+  <Prop
+    name="height"
+    type="number"
+    default="—"
+    description="The height of the 3D carousel in pixels."
+  />
+  <Prop
+    name="direction"
+    type="'left' | 'right' | 'top' | 'bottom'"
+    default="'left'"
+    description="The axis and direction of rotation for the 3D box transitions."
+  />
+  <Prop
+    name="perspective"
+    type="number"
+    default="600"
+    description="The CSS 3D perspective value in pixels. Controls the intensity of the 3D depth effect."
+  />
+  <Prop
+    name="enableDrag"
+    type="boolean"
+    default="true"
+    description="Whether mouse/touch drag gestures are enabled for rotating the cube."
+  />
+  <Prop
+    name="dragSensitivity"
+    type="number"
+    default="0.5"
+    description="Controls the sensitivity of drag rotation (higher values mean more rotation per pixel dragged)."
+  />
+  <Prop
+    name="autoPlay"
+    type="boolean"
+    default="false"
+    description="Enables automated cyclic rotation transitions."
+  />
+  <Prop
+    name="autoPlayInterval"
+    type="number"
+    default="3000"
+    description="The duration in milliseconds between auto-play transitions."
+  />
+  <Prop
+    name="renderItem"
+    type="(item: CarouselItem, index: number) => React.ReactNode"
+    default="—"
+    description="An optional custom renderer function to draw custom layout elements on the cube's faces."
+  />
+  <Prop
+    name="onIndexChange"
+    type="(index: number) => void"
+    default="—"
+    description="Callback function invoked when the active face index changes."
+  />
+</PropsTable>
