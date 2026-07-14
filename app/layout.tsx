@@ -48,8 +48,8 @@ export const metadata: Metadata = {
     creator: SITE_CONFIG.twitter,
   },
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/logo.svg",
+    apple: "/logo.svg",
   },
 };
 

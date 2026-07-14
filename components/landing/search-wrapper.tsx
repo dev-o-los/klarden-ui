@@ -7,9 +7,11 @@ import { useEffect, useState } from "react";
 
 interface SearchWrapperProps {
   items: DocMetadata[];
+  className?: string;
+  onTrigger?: () => void;
 }
 
-export function SearchWrapper({ items }: SearchWrapperProps) {
+export function SearchWrapper({ items, className, onTrigger }: SearchWrapperProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -19,13 +21,29 @@ export function SearchWrapper({ items }: SearchWrapperProps) {
         setOpen((prev) => !prev);
       }
     };
+
+    const handleOpenSearch = () => {
+      setOpen(true);
+    };
+
     document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    document.addEventListener("open-search", handleOpenSearch);
+
+    return () => {
+      document.removeEventListener("keydown", down);
+      document.removeEventListener("open-search", handleOpenSearch);
+    };
   }, []);
 
   return (
     <>
-      <SearchButton onOpen={() => setOpen(true)} />
+      <SearchButton
+        onOpen={() => {
+          setOpen(true);
+          onTrigger?.();
+        }}
+        className={className}
+      />
       <SearchDialog items={items} open={open} onOpenChange={setOpen} />
     </>
   );

@@ -10,6 +10,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { SearchButton } from "@/components/landing/search-button";
+import { GitHubStarButton } from "@/components/github-star-button";
+import { ModeToggle } from "@/components/mode-toggle";
 
 interface MobileNavProps {
   items: DocMetadata[];
@@ -20,6 +23,7 @@ export function MobileNav({ items }: MobileNavProps) {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const [prevPathname, setPrevPathname] = useState(pathname);
+  const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
 
   useEffect(() => {
     if (open) {
@@ -58,8 +62,8 @@ export function MobileNav({ items }: MobileNavProps) {
   if (!mounted)
     return (
       <div className="md:hidden flex items-center">
-        <button className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400">
-          <Menu size={20} />
+        <button className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-input bg-background text-muted-foreground opacity-50 cursor-not-allowed">
+          <Menu size={18} />
         </button>
       </div>
     );
@@ -68,10 +72,10 @@ export function MobileNav({ items }: MobileNavProps) {
     <div className="md:hidden flex items-center">
       <button
         onClick={() => setOpen(true)}
-        className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors flex items-center justify-center relative z-101"
+        className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors active:scale-95 shadow-xs cursor-pointer relative z-101"
         aria-label="Open navigation"
       >
-        <Menu size={20} />
+        <Menu size={18} />
       </button>
 
       {createPortal(
@@ -95,8 +99,9 @@ export function MobileNav({ items }: MobileNavProps) {
                   stiffness: 200,
                   mass: 1,
                 }}
-                className="absolute inset-y-0 left-0 w-75 bg-white dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 shadow-2xl overflow-hidden flex flex-col"
+                className="absolute inset-y-0 left-0 w-80 bg-white dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 shadow-2xl overflow-hidden flex flex-col"
               >
+                {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-xl">
                   <div className="flex items-center -ml-2">
                     <LogoIcon className="size-12 text-zinc-900 dark:text-zinc-50" />
@@ -107,14 +112,18 @@ export function MobileNav({ items }: MobileNavProps) {
                   </div>
                   <button
                     onClick={() => setOpen(false)}
-                    className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-500 transition-colors"
+                    className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors active:scale-95 shadow-xs cursor-pointer"
                     aria-label="Close navigation"
                   >
-                    <X size={20} />
+                    <X size={18} />
                   </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-6 bg-zinc-50/50 dark:bg-zinc-950/50">
+                {/* Content */}
+                <div 
+                  className="flex-1 overflow-y-auto p-6 bg-zinc-50/50 dark:bg-zinc-950/50 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  onMouseLeave={() => setHoveredSlug(null)}
+                >
                   <div className="space-y-8 pb-10">
                     {sortedEntries.map(([category, docs]) => {
                       const { icon: Icon, title } = getCategoryMeta(category);
@@ -142,26 +151,71 @@ export function MobileNav({ items }: MobileNavProps) {
                               {title}
                             </h4>
                           </div>
-                          <div className="flex flex-col gap-1">
-                            {docs.map((doc) => (
-                              <Link
-                                key={doc.slug}
-                                href={`/docs/${doc.slug}`}
-                                className={cn(
-                                  "group flex w-full items-center rounded-lg px-3 py-2.5 transition-all text-sm",
-                                  pathname === `/docs/${doc.slug}`
-                                    ? "bg-primary text-primary-foreground font-bold shadow-md shadow-primary/20"
-                                    : "text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800",
-                                )}
-                              >
-                                {doc.title}
-                              </Link>
-                            ))}
+                          <div className="flex flex-col gap-0.5 relative">
+                            {docs.map((doc) => {
+                              const isActive = pathname === `/docs/${doc.slug}`;
+                              return (
+                                <Link
+                                  key={doc.slug}
+                                  href={`/docs/${doc.slug}`}
+                                  onMouseEnter={() => setHoveredSlug(doc.slug)}
+                                  className={cn(
+                                    "group relative isolate flex w-full items-center rounded-lg px-3 py-2 transition-colors duration-200 text-sm outline-none",
+                                    isActive
+                                      ? "font-semibold text-primary"
+                                      : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100",
+                                  )}
+                                >
+                                  {/* Hover background pill */}
+                                  <AnimatePresence>
+                                    {hoveredSlug === doc.slug && (
+                                      <motion.span
+                                        layoutId="mobile-hover-pill"
+                                        className="absolute inset-0 bg-zinc-100/70 dark:bg-zinc-900/60 rounded-lg -z-10"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                                      />
+                                    )}
+                                  </AnimatePresence>
+
+                                  {/* Active link indicator */}
+                                  {isActive && (
+                                    <motion.div
+                                      layoutId="mobile-active-pill"
+                                      className="absolute inset-0 bg-primary/10 dark:bg-primary/15 border border-primary/15 rounded-lg -z-10"
+                                      transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                                    />
+                                  )}
+
+                                  <span className="relative z-10">{doc.title}</span>
+                                </Link>
+                              );
+                            })}
                           </div>
                         </div>
                       );
                     })}
                   </div>
+                </div>
+
+                {/* Mobile Drawer Actions Footer */}
+                <div className="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl flex items-center gap-2">
+                  <div className="flex-1">
+                    <SearchButton
+                      onOpen={() => {
+                        setOpen(false);
+                        // Dispatch the custom event after the drawer begins closing to avoid focus-trap conflicts
+                        setTimeout(() => {
+                          document.dispatchEvent(new CustomEvent("open-search"));
+                        }, 100);
+                      }}
+                      className="flex w-full"
+                    />
+                  </div>
+                  <GitHubStarButton size="sm" className="h-9" />
+                  <ModeToggle />
                 </div>
               </motion.div>
             </div>

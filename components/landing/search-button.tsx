@@ -13,8 +13,8 @@ export function SearchButton({ className, onOpen }: SearchButtonProps) {
     <button
       onClick={() => onOpen?.()}
       className={cn(
-        "hidden sm:inline-flex items-center gap-2 h-9 w-64 pl-3.5 pr-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-xs text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 cursor-pointer justify-between shadow-xs",
-        className,
+        "items-center gap-2 h-9 pl-3.5 pr-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-xs text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 cursor-pointer justify-between shadow-xs",
+        className ? className : "hidden sm:inline-flex w-64",
       )}
     >
       <Search size={13} className="text-muted-foreground shrink-0" />

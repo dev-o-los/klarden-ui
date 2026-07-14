@@ -72,7 +72,7 @@ export function Sidebar({ items }: SidebarProps) {
                       href={`/docs/${doc.slug}`}
                       onMouseEnter={() => setHoveredSlug(doc.slug)}
                       className={cn(
-                        "group relative flex w-full items-center rounded-lg px-3 py-1.5 transition-colors duration-200 text-sm outline-none",
+                        "group relative isolate flex w-full items-center rounded-lg px-3 py-1.5 transition-colors duration-200 text-sm outline-none",
                         isActive
                           ? "font-semibold text-primary"
                           : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"

@@ -121,7 +121,7 @@ export function TableOfContents() {
                     }
                   }}
                   className={cn(
-                    "group relative block py-1.5 px-3 rounded-lg transition-colors duration-200 outline-none",
+                    "group relative isolate block py-1.5 px-3 rounded-lg transition-colors duration-200 outline-none",
                     isActive
                       ? "font-semibold text-primary"
                       : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"

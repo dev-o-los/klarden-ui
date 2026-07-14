@@ -4,18 +4,45 @@ import { RichButton } from "@/registry/klarden-ui/rich-button";
 import { motion } from "framer-motion";
 import { ArrowRight, Layout } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export function Hero() {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div className="flex flex-col items-center text-center space-y-8 pt-20 pb-16 md:pt-28 md:pb-24">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary border border-border text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground backdrop-blur-sm"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="relative group cursor-pointer overflow-hidden rounded-full border border-zinc-800 dark:border-zinc-800/80 bg-zinc-950 px-5 py-2 text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-100 backdrop-blur-sm transition-all duration-300 hover:border-zinc-600 dark:hover:border-zinc-500 hover:shadow-[0_0_15px_rgba(255,255,255,0.06)]"
+        whileHover={{ scale: 1.015 }}
       >
-        <div className="h-1 w-1 rounded-full bg-emerald-500" />
-        Curated for Design Engineers
+        {/* Shiny Paint Shimmer */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none"
+          initial={{ x: "-100%" }}
+          animate={{ x: "100%" }}
+          transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut", repeatDelay: 1 }}
+        />
+
+        <div className="relative z-10 flex items-center gap-2.5">
+          {/* status indicator dot */}
+          <div className="relative flex h-2 w-2 items-center justify-center">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-zinc-400 opacity-75 animate-ping" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-zinc-100 shadow-[0_0_8px_#ffffff]" />
+          </div>
+
+          <motion.span
+            animate={{ letterSpacing: isHovered ? "0.24em" : "0.22em" }}
+            transition={{ duration: 0.2 }}
+            className="text-zinc-300 group-hover:text-white transition-colors duration-300"
+          >
+            Curated for Design Engineers
+          </motion.span>
+        </div>
       </motion.div>
 
       <div className="space-y-6 max-w-4xl">

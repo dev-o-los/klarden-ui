@@ -1,19 +1,15 @@
 "use client";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/registry/klarden-ui/accordion";
 import { CommandOrbit } from "@/registry/klarden-ui/command-orbit";
 import { MagneticDock } from "@/registry/klarden-ui/magnetic-dock";
-import { OrbitContextMenu } from "@/registry/klarden-ui/orbit-context-menu";
-import { RichButton } from "@/registry/klarden-ui/rich-button";
 import { SpotifyCard } from "@/registry/klarden-ui/spotify/spotify-card";
 import { TactileHighlight } from "@/registry/klarden-ui/tactile-highlight";
+import { Signature } from "@/registry/klarden-ui/signature";
+import { Pagination, usePaginationState } from "@/registry/klarden-ui/pagination";
+import BoxCarousel from "@/registry/klarden-ui/box-carousel";
+import { ImageTrail, ImageTrailItem } from "@/registry/klarden-ui/image-trail";
 import { motion, type Variants } from "framer-motion";
-import { Layout, MousePointer2, Type, Zap } from "lucide-react";
+import { Layout, MousePointer2, Type, Zap, PenTool, Box, ChevronRight, Image as ImageIcon } from "lucide-react";
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -24,7 +20,56 @@ const itemVariants: Variants = {
   },
 };
 
+const BOX_CAROUSEL_ITEMS = [
+  {
+    id: "beach",
+    type: "image" as const,
+    src: "/images/box-carousel-1.jpg",
+    alt: "Beautiful tropical beach",
+  },
+  {
+    id: "mountains",
+    type: "image" as const,
+    src: "/images/box-carousel-2.jpg",
+    alt: "Snowy mountain peaks under a starry night sky",
+  },
+  {
+    id: "galaxy",
+    type: "image" as const,
+    src: "/images/box-carousel-3.jpg",
+    alt: "Vibrant cosmic galaxy dust and stars",
+  },
+  {
+    id: "sunset",
+    type: "image" as const,
+    src: "/images/box-carousel-4.jpg",
+    alt: "Colorful sunset over a calm ocean beach",
+  },
+  {
+    id: "valley",
+    type: "image" as const,
+    src: "/images/box-carousel-5.jpg",
+    alt: "Beautiful green valley mountain trail",
+  },
+  {
+    id: "hills",
+    type: "image" as const,
+    src: "/images/box-carousel-6.jpg",
+    alt: "Deep forest hills under a sunny sky",
+  },
+];
+
+const TRAIL_IMAGES = [
+  "/images/trail-1.jpg",
+  "/images/trail-2.jpg",
+  "/images/trail-3.jpg",
+  "/images/trail-4.jpg",
+  "/images/trail-5.jpg",
+];
+
 export function Showcase() {
+  const pagination = usePaginationState(1);
+
   return (
     <motion.div
       initial="hidden"
@@ -49,35 +94,30 @@ export function Showcase() {
         </div>
       </motion.div>
 
-      {/* Accordion */}
+      {/* Signature */}
       <motion.div
         variants={itemVariants}
-        className="md:col-span-4 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-6 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col justify-center"
+        className="md:col-span-4 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-6 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col justify-center min-h-80"
       >
-        <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-4 w-fit shadow-xs">
-          <Layout size={10} /> Structure
+        <div className="absolute top-6 left-6 z-10">
+          <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
+            <PenTool size={10} /> Vector
+          </div>
+          <h3 className="text-xl font-bold tracking-tight">Signature</h3>
         </div>
-        <h3 className="text-xl font-bold tracking-tight mb-6">
-          Tactile Accordion
-        </h3>
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="i1" className="border-border">
-            <AccordionTrigger className="text-sm font-bold">
-              Design Philosophy
-            </AccordionTrigger>
-            <AccordionContent className="text-xs text-muted-foreground font-medium">
-              Focus on low-level primitives.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="i2" className="border-border">
-            <AccordionTrigger className="text-sm font-bold">
-              Motion
-            </AccordionTrigger>
-            <AccordionContent className="text-xs text-muted-foreground font-medium">
-              Optimized spring physics.
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        <div className="flex items-center justify-center mt-12 overflow-hidden">
+          <Signature
+            text="Klarden UI"
+            color="currentColor"
+            className="text-zinc-900 dark:text-zinc-50"
+            fontSize={36}
+            duration={1.8}
+            delay={0.3}
+            glow={false}
+            inView={true}
+            once={false}
+          />
+        </div>
       </motion.div>
 
       {/* Spotify Card showcase */}
@@ -112,33 +152,27 @@ export function Showcase() {
         </div>
       </motion.div>
 
-      {/* Orbit Context Menu showcase */}
+      {/* Box Carousel showcase */}
       <motion.div
         variants={itemVariants}
-        className="md:col-span-7 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 md:p-10 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-[20rem] md:min-h-80"
+        className="md:col-span-7 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-6 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-80"
       >
-        <div className="absolute top-6 left-6">
+        <div className="absolute top-6 left-6 z-10">
           <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
-            <MousePointer2 size={10} /> Menu
+            <Box size={10} /> 3D Cube
           </div>
-          <h3 className="text-xl font-bold tracking-tight">Context Menu</h3>
+          <h3 className="text-xl font-bold tracking-tight">Box Carousel</h3>
         </div>
-        <div className="w-full max-w-sm mt-16 md:mt-12">
-          <OrbitContextMenu>
-            <div className="p-8 md:p-12 border-2 border-dashed border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 flex flex-col items-center justify-center text-center space-y-3 md:space-y-4 rounded-[2rem] transition-colors group-hover:bg-white/80 dark:group-hover:bg-zinc-900/80">
-              <div className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                <MousePointer2 className="text-zinc-400" size={28} />
-              </div>
-              <div className="space-y-2">
-                <p className="text-zinc-900 dark:text-zinc-50 font-bold text-base md:text-lg">
-                  Right-click here
-                </p>
-                <p className="text-zinc-500 dark:text-zinc-400 text-xs px-2 md:px-4 font-medium">
-                  Experience radial motion.
-                </p>
-              </div>
-            </div>
-          </OrbitContextMenu>
+        <div className="mt-16 scale-90 sm:scale-100 flex items-center justify-center">
+          <BoxCarousel
+            items={BOX_CAROUSEL_ITEMS}
+            width={180}
+            height={180}
+            direction="left"
+            autoPlay={true}
+            enableDrag={true}
+            perspective={800}
+          />
         </div>
       </motion.div>
 
@@ -163,31 +197,85 @@ export function Showcase() {
         </div>
       </motion.div>
 
-      {/* Glossy Buttons showcase */}
+      {/* Pagination showcase */}
       <motion.div
         variants={itemVariants}
-        className="md:col-span-12 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 md:p-10 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-[16rem] md:min-h-40"
+        className="md:col-span-4 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-6 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col justify-center min-h-80"
       >
-        <div className="absolute top-6 left-6">
+        <div className="absolute top-6 left-6 z-10">
           <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
-            <Zap size={10} /> Varieties
+            <ChevronRight size={10} /> Navigation
           </div>
-          <h3 className="text-xl font-bold tracking-tight">Glossy Buttons</h3>
+          <h3 className="text-xl font-bold tracking-tight">Pagination</h3>
         </div>
+        <div className="flex flex-col items-center justify-center mt-12 gap-4">
+          <Pagination
+            totalPages={5}
+            currentPage={pagination.page}
+            onPageChange={pagination.setPage}
+            color="default"
+            showEdges
+          />
+          <p className="text-[10px] text-muted-foreground font-medium mt-2">
+            Active Page: {pagination.page}
+          </p>
+        </div>
+      </motion.div>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mt-10 md:mt-8">
-          <RichButton color="blue" size="sm" className="rounded-xl">
-            Primary
-          </RichButton>
-          <RichButton color="emerald" size="sm" className="rounded-xl">
-            <Zap size={14} className="mr-2" /> Success
-          </RichButton>
-          <RichButton color="purple" size="sm" className="rounded-xl">
-            Purple
-          </RichButton>
-          <RichButton color="default" size="sm" className="rounded-xl">
-            Dark
-          </RichButton>
+      {/* Image Trail showcase */}
+      <motion.div
+        variants={itemVariants}
+        className="md:col-span-8 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-6 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col justify-center min-h-80 cursor-crosshair"
+      >
+        <div className="absolute top-6 left-6 z-10">
+          <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
+            <ImageIcon size={10} /> Cursor Trail
+          </div>
+          <h3 className="text-xl font-bold tracking-tight">Image Trail</h3>
+        </div>
+        
+        {/* Background grid representation */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
+
+        <div className="absolute inset-0 flex items-center justify-center pt-16">
+          <ImageTrail
+            className="absolute inset-0"
+            threshold={60}
+            intensity={0.2}
+            repeatChildren={8}
+            keyframes={{
+              scale: [0.3, 1, 1, 0.3],
+              rotate: [0, -10, 10, 0],
+              opacity: [0, 1, 1, 0],
+            }}
+            keyframesOptions={{
+              duration: 1.0,
+              times: [0, 0.05, 0.85, 1],
+              ease: "easeOut",
+            }}
+            trailElementAnimationKeyframes={{
+              x: { duration: 0.35, type: "tween", ease: "easeOut" },
+              y: { duration: 0.35, type: "tween", ease: "easeOut" },
+            }}
+          >
+            {TRAIL_IMAGES.map((src, index) => (
+              <ImageTrailItem
+                key={index}
+                className="w-20 h-20 sm:w-28 sm:h-28 shadow-2xl overflow-hidden rounded-2xl bg-zinc-200 dark:bg-zinc-800"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={src}
+                  alt={`Trail photo ${index + 1}`}
+                  className="w-full h-full object-cover pointer-events-none select-none"
+                />
+              </ImageTrailItem>
+            ))}
+          </ImageTrail>
+          
+          <span className="text-xs text-muted-foreground font-medium pointer-events-none select-none z-10 bg-background/50 backdrop-blur-xs px-3 py-1.5 rounded-full border border-border">
+            Move mouse here to view trail
+          </span>
         </div>
       </motion.div>
     </motion.div>
