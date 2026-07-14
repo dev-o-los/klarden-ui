@@ -359,43 +359,29 @@ const BoxCarousel = forwardRef<BoxCarouselRef, BoxCarouselProps>(
         // Moving mouse vertically (deltaY) rotates around X axis (baseRotateX)
         const rotationDeltaX = deltaY * dragSensitivity
 
-        let newRotationY = startRotationY.current
-        let newRotationX = startRotationX.current
-
-        // Apply drag updates to Y rotation (horizontal)
-        if (direction === "left") {
-          newRotationY += rotationDeltaY
-        } else if (direction === "right") {
-          newRotationY -= rotationDeltaY
-        } else {
-          newRotationY += rotationDeltaY
-        }
-
-        // Apply drag updates to X rotation (vertical)
-        if (direction === "top") {
-          newRotationX += rotationDeltaX
-        } else if (direction === "bottom") {
-          newRotationX -= rotationDeltaX
-        } else {
-          newRotationX -= rotationDeltaX
-        }
+        // Physical updates: Y rotation for horizontal drag, X rotation for vertical drag
+        const newRotationY = startRotationY.current + rotationDeltaY
+        const newRotationX = startRotationX.current - rotationDeltaX
 
         // Constrain rotation values to keep the globe/cube movement within snap bounds
         const isVertical = direction === "top" || direction === "bottom"
+        let constrainedRotationY = newRotationY
+        let constrainedRotationX = newRotationX
+
         if (isVertical) {
           const minRotX = startRotationX.current - 120
           const maxRotX = startRotationX.current + 120
-          newRotationX = Math.max(minRotX, Math.min(maxRotX, newRotationX))
-          newRotationY = Math.max(-90, Math.min(90, newRotationY))
+          constrainedRotationX = Math.max(minRotX, Math.min(maxRotX, constrainedRotationX))
+          constrainedRotationY = Math.max(-90, Math.min(90, constrainedRotationY))
         } else {
           const minRotY = startRotationY.current - 120
           const maxRotY = startRotationY.current + 120
-          newRotationY = Math.max(minRotY, Math.min(maxRotY, newRotationY))
-          newRotationX = Math.max(-90, Math.min(90, newRotationX))
+          constrainedRotationY = Math.max(minRotY, Math.min(maxRotY, constrainedRotationY))
+          constrainedRotationX = Math.max(-90, Math.min(90, constrainedRotationX))
         }
 
-        baseRotateX.set(newRotationX)
-        baseRotateY.set(newRotationY)
+        baseRotateX.set(constrainedRotationX)
+        baseRotateY.set(constrainedRotationY)
 
         // Calculate drag velocity (degrees per millisecond) for momentum on release
         const now = Date.now()
@@ -404,12 +390,9 @@ const BoxCarousel = forwardRef<BoxCarouselRef, BoxCarouselProps>(
           const dx = point.clientX - lastPosition.current.x
           const dy = point.clientY - lastPosition.current.y
 
-          // Convert screen movement dx/dy to rotation velocity with direction signs matching drag
-          let vy = dx * dragSensitivity
-          if (direction === "right") vy = -vy
-
-          let vx = dy * dragSensitivity
-          if (direction === "bottom" || direction === "left" || direction === "right") vx = -vx
+          // Convert screen movement dx/dy to rotation velocity matching natural physical direction
+          const vy = dx * dragSensitivity
+          const vx = -dy * dragSensitivity
 
           dragVelocity.current = {
             x: vx / dt,
@@ -434,12 +417,18 @@ const BoxCarousel = forwardRef<BoxCarouselRef, BoxCarouselProps>(
       const isVertical = direction === "top" || direction === "bottom"
 
       // Add velocity-based momentum to the snap target calculation
-      // Project rotation forward by 120ms based on release velocity
-      const velocityX = dragVelocity.current.x
-      const velocityY = dragVelocity.current.y
+      // If the user paused for more than 80ms before releasing, reset velocity to 0
+      const timeSinceLastMove = Date.now() - lastMoveTime.current
+      const velocityX = timeSinceLastMove > 80 ? 0 : dragVelocity.current.x
+      const velocityY = timeSinceLastMove > 80 ? 0 : dragVelocity.current.y
 
-      const projectedX = currentX + velocityX * 120
-      const projectedY = currentY + velocityY * 120
+      // Limit projected momentum rotation to maximum 180 degrees (2 faces) in either direction
+      const maxProjection = 180
+      const projDiffX = Math.max(-maxProjection, Math.min(maxProjection, velocityX * 120))
+      const projDiffY = Math.max(-maxProjection, Math.min(maxProjection, velocityY * 120))
+
+      const projectedX = currentX + projDiffX
+      const projectedY = currentY + projDiffY
 
       const snappedX = Math.round(projectedX / 90) * 90
       const snappedY = Math.round(projectedY / 90) * 90
@@ -625,11 +614,16 @@ const BoxCarousel = forwardRef<BoxCarouselRef, BoxCarouselProps>(
 
     return (
       <div
-        className={cn("relative focus:outline-none", enableDrag && "cursor-grab active:cursor-grabbing", className)}
+        className={cn(
+          "relative focus:outline-none",
+          enableDrag && "cursor-grab active:cursor-grabbing touch-none",
+          className
+        )}
         style={{
           width,
           height,
           perspective: `${perspective}px`,
+          touchAction: enableDrag ? "none" : "auto",
         }}
         onKeyDown={handleKeyDown}
         tabIndex={0}
