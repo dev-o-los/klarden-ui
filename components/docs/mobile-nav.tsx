@@ -62,7 +62,7 @@ export function MobileNav({ items }: MobileNavProps) {
   if (!mounted)
     return (
       <div className="md:hidden flex items-center">
-        <button className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-input bg-background text-muted-foreground opacity-50 cursor-not-allowed">
+        <button className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-input bg-background text-muted-foreground opacity-50 cursor-not-allowed">
           <Menu size={18} />
         </button>
       </div>
@@ -72,7 +72,7 @@ export function MobileNav({ items }: MobileNavProps) {
     <div className="md:hidden flex items-center">
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors active:scale-95 shadow-xs cursor-pointer relative z-101"
+        className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors active:scale-95 shadow-xs cursor-pointer relative z-101"
         aria-label="Open navigation"
       >
         <Menu size={18} />
@@ -112,7 +112,7 @@ export function MobileNav({ items }: MobileNavProps) {
                   </div>
                   <button
                     onClick={() => setOpen(false)}
-                    className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors active:scale-95 shadow-xs cursor-pointer"
+                    className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors active:scale-95 shadow-xs cursor-pointer"
                     aria-label="Close navigation"
                   >
                     <X size={18} />
