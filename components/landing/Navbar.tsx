@@ -37,6 +37,12 @@ export function Navbar() {
             >
               Components
             </Link>
+            <Link
+              href="/sponsor"
+              className="hover:text-primary transition-colors"
+            >
+              Sponsor
+            </Link>
           </div>
         </div>
         <div className="flex items-center gap-2">
