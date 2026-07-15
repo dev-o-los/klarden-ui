@@ -1,0 +1,75 @@
+---
+title: Page Not Found
+description: A beautiful, interactive bouncing screensaver component that mimics the classic DVD logo bouncing behavior, ideal for 404 pages.
+category: Media
+---
+
+The `PageNotFound` component creates a collision-bouncing container block. It takes any custom react element as children and floats/bounces it dynamically inside the container ref boundaries.
+
+## Preview
+
+<ComponentPreview name="page-not-found" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="page-not-found" />
+
+### Basic Example
+
+```tsx
+import React, { useRef } from "react";
+import { PageNotFound } from "@/components/klarden-ui/page-not-found";
+
+export default function App() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full h-[400px] border border-border rounded-xl bg-zinc-950 overflow-hidden"
+    >
+      <PageNotFound
+        containerRef={containerRef}
+        speed={3}
+        startPosition={{ x: 10, y: 20 }}
+        startAngle={45}
+      >
+        <div className="px-4 py-2 bg-rose-500 text-white rounded-lg font-bold">
+          404 Not Found
+        </div>
+      </PageNotFound>
+    </div>
+  );
+}
+```
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="containerRef"
+    type="React.RefObject<HTMLElement | null>"
+    default="undefined"
+    description="Ref object pointing to the parent container bounding box that restricts the element's motion."
+  />
+  <Prop
+    name="speed"
+    type="number"
+    default="3"
+    description="The speed velocity of the bouncing element motion."
+  />
+  <Prop
+    name="startPosition"
+    type="{ x: number; y: number }"
+    default="{ x: 0, y: 0 }"
+    description="Initial start coordinate offset positions inside the container boundary container in percentage values (0-100)."
+  />
+  <Prop
+    name="startAngle"
+    type="number"
+    default="45"
+    description="The initial motion trajectory angle in degrees."
+  />
+</PropsTable>

@@ -23,7 +23,8 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
     name.startsWith("plasma-wave") ||
     name.startsWith("ghost-ether") ||
     name.startsWith("starry-sky") ||
-    name.startsWith("image-trail");
+    name.startsWith("image-trail") ||
+    name.startsWith("page-not-found");
 
   const copyToClipboard = () => {
     setCopied(true);

@@ -61,4 +61,5 @@ export const registry: Record<
   "image-trail": dynamic(() => import("@/registry/demos/image-trail-demo")),
   "box-carousel": dynamic(() => import("@/registry/demos/box-carousel-demo")),
   "box-carousel-variants": dynamic(() => import("@/registry/demos/box-carousel-variants-demo")),
+  "page-not-found": dynamic(() => import("@/registry/demos/page-not-found-demo")),
 };

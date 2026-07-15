@@ -549,6 +549,28 @@
       ],
       "registryDependencies": [],
       "category": "media"
+    },
+    {
+      "name": "page-not-found",
+      "type": "registry:component",
+      "title": "Page Not Found",
+      "description": "An interactive, WebGL-like collision-bouncing 404 screensaver component with customizable speed, trajectories, and children containers.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/page-not-found.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "hooks/use-dimensions.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "category": "media"
     }
   ]
 }
