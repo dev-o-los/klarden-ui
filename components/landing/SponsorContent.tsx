@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Heart, Users, Link2, LayoutGrid, Clock, Crown } from "lucide-react";
+import { Signature } from "@/registry/klarden-ui/signature";
 
 function getMailtoLink(planName: string, price: string) {
   const email = "utkarshh2705@gmail.com";
@@ -23,13 +24,13 @@ export function SponsorContent() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 15 },
-    show: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
-        duration: 0.5, 
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
         ease: [0.23, 1, 0.32, 1] as const
-      } 
+      }
     }
   };
 
@@ -50,9 +51,20 @@ export function SponsorContent() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-          className="text-4xl sm:text-5xl font-medium tracking-tight leading-[1.15] text-foreground"
+          className="text-4xl sm:text-5xl font-medium tracking-tight leading-none text-foreground flex flex-col sm:flex-row items-center justify-center gap-x-2"
         >
-          Sponsor <span className="font-serif italic text-muted-foreground">Klarden UI</span>
+          <span>Sponsor</span>
+          <Signature
+            text="Klarden UI"
+            color="currentColor"
+            className="text-zinc-950 dark:text-zinc-50 -my-10"
+            fontSize={40}
+            duration={1.8}
+            delay={0.5}
+            glow={false}
+            inView={true}
+            once={false}
+          />
         </motion.h1>
 
         <motion.p
