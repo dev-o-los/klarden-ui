@@ -62,4 +62,5 @@ export const registry: Record<
   "box-carousel": dynamic(() => import("@/registry/demos/box-carousel-demo")),
   "box-carousel-variants": dynamic(() => import("@/registry/demos/box-carousel-variants-demo")),
   "page-not-found": dynamic(() => import("@/registry/demos/page-not-found-demo")),
+  "mac-terminal": dynamic(() => import("@/registry/demos/mac-terminal-demo")),
 };

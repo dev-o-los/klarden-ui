@@ -1,0 +1,219 @@
+---
+title: Mac Terminal
+description: A draggable, interactive macOS-style terminal window with neofetch output, editable input, command history, and dark/light mode support.
+category: Media
+---
+
+The `MacTerminal` component is a pixel-perfect recreation of the macOS Terminal.app window. It features the classic traffic light buttons, a draggable title bar, a fully interactive command line with history navigation, and a built-in neofetch-style system info display with Apple ASCII art. The terminal supports both dark and light modes automatically.
+
+## Preview
+
+<ComponentPreview name="mac-terminal" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="mac-terminal" />
+
+### Basic Example
+
+```tsx
+import { MacTerminal } from "@/components/klarden-ui/mac-terminal";
+
+export default function App() {
+  return (
+    <MacTerminal
+      username="Kipp"
+      hostname="lil-boi.local"
+      shell="zsh"
+      width={680}
+      height={400}
+      draggable={true}
+      showNeofetch={true}
+    />
+  );
+}
+```
+
+### Custom Command Handler
+
+```tsx
+import { MacTerminal } from "@/components/klarden-ui/mac-terminal";
+
+export default function App() {
+  return (
+    <MacTerminal
+      username="dev"
+      hostname="macbook.local"
+      onCommand={(cmd) => {
+        if (cmd === "hello") return ["Hello, World! 🚀"];
+        if (cmd === "status") return ["All systems operational ✅"];
+        return undefined; // fallback to built-in commands
+      }}
+    />
+  );
+}
+```
+
+## Built-in Commands
+
+The terminal ships with a set of built-in shell commands. You can extend or override them using the `onCommand` prop.
+
+<PropsTable>
+  <Prop
+    name="neofetch"
+    type="command"
+    default="—"
+    description="Displays the Apple ASCII art alongside system information."
+  />
+  <Prop
+    name="clear"
+    type="command"
+    default="—"
+    description="Clears the entire terminal screen."
+  />
+  <Prop
+    name="whoami"
+    type="command"
+    default="—"
+    description="Prints the currently configured username."
+  />
+  <Prop
+    name="hostname"
+    type="command"
+    default="—"
+    description="Prints the currently configured hostname."
+  />
+  <Prop
+    name="pwd"
+    type="command"
+    default="—"
+    description="Shows the simulated current working directory."
+  />
+  <Prop
+    name="date"
+    type="command"
+    default="—"
+    description="Prints the current local date and time."
+  />
+  <Prop
+    name="ls"
+    type="command"
+    default="—"
+    description="Lists mock home directory contents."
+  />
+  <Prop
+    name="echo <text>"
+    type="command"
+    default="—"
+    description="Echoes the provided text back to the terminal."
+  />
+  <Prop
+    name="uname"
+    type="command"
+    default="—"
+    description="Displays simulated system kernel information."
+  />
+  <Prop
+    name="help"
+    type="command"
+    default="—"
+    description="Lists all available built-in commands."
+  />
+</PropsTable>
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="username"
+    type="string"
+    default='"Kipp"'
+    description="The username displayed in the terminal prompt."
+  />
+  <Prop
+    name="hostname"
+    type="string"
+    default='"lil-boi.local"'
+    description="The hostname displayed in the terminal prompt."
+  />
+  <Prop
+    name="shell"
+    type="string"
+    default='"zsh"'
+    description="The shell name shown in the title bar."
+  />
+  <Prop
+    name="title"
+    type="string"
+    default="undefined"
+    description="Override the title bar text. Defaults to 'username — -shell — 80x24'."
+  />
+  <Prop
+    name="width"
+    type="number"
+    default="680"
+    description="The initial width of the terminal window in pixels."
+  />
+  <Prop
+    name="height"
+    type="number"
+    default="420"
+    description="The initial height of the terminal body in pixels."
+  />
+  <Prop
+    name="draggable"
+    type="boolean"
+    default="true"
+    description="Whether the terminal window can be dragged by its title bar."
+  />
+  <Prop
+    name="showNeofetch"
+    type="boolean"
+    default="true"
+    description="Whether to display the neofetch output when the terminal mounts."
+  />
+  <Prop
+    name="neofetchInfo"
+    type="{ label: string; value: string }[]"
+    default="DEFAULT_NEOFETCH_INFO"
+    description="Custom system info entries for the neofetch display."
+  />
+  <Prop
+    name="initialLines"
+    type="TerminalLine[]"
+    default="undefined"
+    description="Pre-fill the terminal with custom lines instead of the default neofetch output."
+  />
+  <Prop
+    name="onCommand"
+    type="(command: string) => string[] | undefined"
+    default="undefined"
+    description="Custom command handler. Return string[] of output lines, or undefined to fall through to built-in commands."
+  />
+  <Prop
+    name="onClose"
+    type="() => void"
+    default="undefined"
+    description="Callback when the red close button is clicked."
+  />
+  <Prop
+    name="onMinimize"
+    type="() => void"
+    default="undefined"
+    description="Callback when the yellow minimize button is clicked."
+  />
+  <Prop
+    name="onMaximize"
+    type="() => void"
+    default="undefined"
+    description="Callback when the green maximize button is clicked."
+  />
+  <Prop
+    name="className"
+    type="string"
+    default="—"
+    description="Additional CSS classes for the outer container."
+  />
+</PropsTable>
