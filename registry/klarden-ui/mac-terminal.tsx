@@ -268,6 +268,20 @@ export function MacTerminal({
     [draggable, pos]
   );
 
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent) => {
+      if (!draggable || e.touches.length !== 1) return;
+      setIsDragging(true);
+      setIsFocused(true);
+      const touch = e.touches[0];
+      dragOffset.current = {
+        x: touch.clientX - pos.x,
+        y: touch.clientY - pos.y,
+      };
+    },
+    [draggable, pos]
+  );
+
   useEffect(() => {
     if (!isDragging) return;
 
@@ -278,15 +292,33 @@ export function MacTerminal({
       });
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      setPos({
+        x: e.touches[0].clientX - dragOffset.current.x,
+        y: e.touches[0].clientY - dragOffset.current.y,
+      });
+    };
+
     const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    const handleTouchEnd = () => {
       setIsDragging(false);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd);
+    window.addEventListener("touchcancel", handleTouchEnd);
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("touchcancel", handleTouchEnd);
     };
   }, [isDragging]);
 
@@ -491,17 +523,19 @@ export function MacTerminal({
         ref={containerRef}
         className={cn(
           `mac-terminal-${uid}`,
-          "relative select-none",
+          "relative select-none max-w-full",
           isDragging && "cursor-grabbing",
           className
         )}
         style={{
           transform: `translate(${pos.x}px, ${pos.y}px)`,
-          width,
+          width: width ? `${width}px` : "100%",
+          maxWidth: "100%",
           zIndex: isFocused ? 50 : 40,
           transition: isDragging ? "none" : "box-shadow 0.2s ease",
         }}
         onMouseDown={() => setIsFocused(true)}
+        onTouchStart={() => setIsFocused(true)}
       >
         {/* ─── Window Chrome ─── */}
         <div
@@ -515,17 +549,19 @@ export function MacTerminal({
           {/* ─── Title Bar ─── */}
           <div
             onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
             style={{
               background: "var(--term-titlebar)",
               borderBottom: "1px solid var(--term-titlebar-border)",
               boxShadow: "var(--term-inner-shadow)",
               cursor: draggable ? (isDragging ? "grabbing" : "grab") : "default",
               userSelect: "none",
+              touchAction: draggable ? "none" : "auto",
             }}
             className="relative flex items-center px-3 py-[7px]"
           >
             {/* Traffic Lights */}
-            <div className="flex items-center gap-[7px] z-10">
+            <div className="flex items-center gap-[7px] z-10 shrink-0">
               <button
                 onClick={handleClose}
                 aria-label="Close"
@@ -603,7 +639,7 @@ export function MacTerminal({
 
             {/* Title */}
             <div
-              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+              className="absolute inset-0 flex items-center justify-center pointer-events-none px-12"
               style={{
                 color: "var(--term-titlebar-text)",
                 fontSize: 13,
@@ -613,18 +649,19 @@ export function MacTerminal({
                 letterSpacing: "-0.01em",
               }}
             >
-              <span className="flex items-center gap-1.5">
+              <span className="flex items-center gap-1.5 truncate max-w-full">
                 <svg
                   width="12"
                   height="12"
                   viewBox="0 0 16 16"
                   fill="currentColor"
                   opacity={0.5}
+                  className="shrink-0"
                 >
                   <path d="M2 3.5A1.5 1.5 0 013.5 2h9A1.5 1.5 0 0114 3.5v9a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 12.5v-9zM3.5 3a.5.5 0 00-.5.5v9a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-9a.5.5 0 00-.5-.5h-9z" />
                   <path d="M4 5.5a.5.5 0 01.5-.5h7a.5.5 0 01.5.5v1a.5.5 0 01-.5.5h-7a.5.5 0 01-.5-.5v-1z" />
                 </svg>
-                {titleText}
+                <span className="truncate">{titleText}</span>
               </span>
             </div>
           </div>
@@ -638,15 +675,15 @@ export function MacTerminal({
                 background: "var(--term-bg)",
                 color: "var(--term-text)",
                 height,
+                maxHeight: "65vh",
                 fontFamily:
                   '"SF Mono", "Menlo", "Monaco", "Cascadia Code", "Consolas", monospace',
-                fontSize: 13,
                 lineHeight: 1.5,
                 overflowY: "auto",
-                overflowX: "hidden",
+                overflowX: "auto",
                 cursor: "text",
               }}
-              className="p-3 select-text"
+              className="p-2.5 sm:p-3 text-[11px] sm:text-[13px] select-text"
             >
               {/* ── Rendered Lines ── */}
               {lines.map((line) => (

@@ -4,7 +4,7 @@ import { MacTerminal } from "@/registry/klarden-ui/mac-terminal";
 
 export default function MacTerminalDemo() {
   return (
-    <div className="relative w-full min-h-[520px] flex items-center justify-center overflow-hidden">
+    <div className="relative w-full max-w-full min-h-[440px] sm:min-h-[520px] px-2 sm:px-4 py-4 flex items-center justify-center overflow-hidden">
       <MacTerminal
         username="utkarsh"
         hostname="dev_"
