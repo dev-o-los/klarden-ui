@@ -143,7 +143,7 @@ Could you please explain this component in detail, what it is all about, and pro
   const MainIconComponent = selectedProvider.icon;
 
   return (
-    <div ref={containerRef} className="relative inline-flex items-center isolate">
+    <div ref={containerRef} className={`relative inline-flex items-center ${isOpen || copiedToast ? "z-50" : "z-20"}`}>
       <div className="inline-flex items-stretch h-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 shadow-xs overflow-hidden select-none">
         {/* Main Action Button */}
         <button
@@ -187,7 +187,7 @@ Could you please explain this component in detail, what it is all about, and pro
             animate={{ opacity: 1, y: 4, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full right-0 z-50 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-900 text-zinc-50 dark:bg-zinc-100 dark:text-zinc-900 text-[11px] font-medium shadow-lg flex items-center gap-2 whitespace-nowrap pointer-events-none"
+            className="absolute top-full right-0 z-[999] mt-1 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-900 text-zinc-50 dark:bg-zinc-100 dark:text-zinc-900 text-[11px] font-medium shadow-xl flex items-center gap-2 whitespace-nowrap pointer-events-none"
           >
             <Check size={13} className="text-emerald-400 dark:text-emerald-600 shrink-0" />
             <span>Prompt copied to clipboard! Paste (Ctrl+V) in {selectedProvider.name}</span>
@@ -203,7 +203,7 @@ Could you please explain this component in detail, what it is all about, and pro
             animate={{ opacity: 1, scale: 1, y: 4 }}
             exit={{ opacity: 0, scale: 0.96, y: -4 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute top-full right-0 z-50 min-w-[170px] p-1 rounded-xl border border-zinc-200/90 dark:border-zinc-800/90 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-xl shadow-lg shadow-zinc-950/5 dark:shadow-zinc-950/50 overflow-hidden space-y-0.5"
+            className="absolute top-full right-0 z-[999] min-w-[170px] mt-1 p-1 rounded-xl border border-zinc-200/90 dark:border-zinc-800/90 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-xl shadow-xl shadow-zinc-950/10 dark:shadow-zinc-950/60 overflow-hidden space-y-0.5"
           >
             {AI_PROVIDERS.map((provider) => (
               <DropdownProviderItem
