@@ -571,6 +571,21 @@
       ],
       "registryDependencies": [],
       "category": "media"
+    },
+    {
+      "name": "mac-terminal",
+      "type": "registry:component",
+      "title": "Mac Terminal",
+      "description": "A draggable, interactive macOS-style terminal window with neofetch output, editable input, command history, and dark/light mode support.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/mac-terminal.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "category": "media"
     }
   ]
 }
