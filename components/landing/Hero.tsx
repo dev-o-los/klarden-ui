@@ -18,7 +18,7 @@ export function Hero() {
       nebulaIntensity={0.4}
       interactive
       opacity={1}
-      className="w-full rounded-2xl"
+      className="w-full"
     >
       {/* Bottom fade */}
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent z-20" />

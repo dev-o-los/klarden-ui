@@ -15,9 +15,11 @@ export default function Home() {
     <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground font-sans selection:bg-primary selection:text-primary-foreground transition-colors duration-500">
       <Navbar />
 
-      <main className="max-w-350 mx-auto px-6 md:px-10 lg:px-12">
+      <main className="max-w-350 mx-auto">
         <Hero />
-        <Showcase />
+        <div className="px-6 md:px-10 lg:px-12">
+          <Showcase />
+        </div>
       </main>
 
       <Footer />
